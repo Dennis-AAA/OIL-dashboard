@@ -85,6 +85,16 @@
   .c-date { position: absolute; bottom: -1px; font-size: 9.5px; color: var(--text4); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .c-date.dl { left: 0; } .c-date.dr { right: 0; }
 
+  .ranges { display: flex; gap: 5px; margin-top: 6px; }
+  .ranges button {
+    font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--text3); cursor: pointer; line-height: 1.5;
+  }
+  .ranges button:hover { color: var(--accent); border-color: var(--accent); }
+  .ranges button.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
+  .ranges button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
   footer { margin-top: 30px; border-top: 1px solid var(--border); padding-top: 12px;
     font-size: 11.5px; color: var(--text3); line-height: 1.8; }
   footer .warn { color: var(--warn); }
@@ -210,40 +220,67 @@ function chartHtml(hist, big, ch) {
     `<span class="c-date dl">${shortDate(hist[0][0])}</span>` +
     `<span class="c-date dr">${shortDate(hist[li][0])}</span></div>`;
 }
+const RANGE_LBL = { all: "十年", y3: "近三年", y1: "近一年" };
+const rangeSel = {};
+
+function sliceHist(hist, r) {
+  if (!hist || !hist.length || r === "all") return hist;
+  const days = r === "y3" ? 1095 : 365;
+  const end = new Date(hist[hist.length - 1][0]).getTime();
+  const out = hist.filter(p => new Date(p[0]).getTime() >= end - days * 864e5);
+  return out.length >= 2 ? out : hist;
+}
+
 function cardHtml(m, hero, tall) {
   if (!m) return "";
+  const sel = rangeSel[m._key] || "all";
+  const hv = sliceHist(m.history, sel);
   const note = EXTRA_LABEL[m._key] ? `<span class="date">${EXTRA_LABEL[m._key]}</span>` : "";
   let rangeTxt = "";
   if (hero && m.history && m.history.length > 1) {
     const vs = m.history.map(p => p[1]);
     rangeTxt = `<span class="range">十年区间 ${fmt(Math.min(...vs))}–${fmt(Math.max(...vs))}</span>`;
   }
+  const btns = (m.history && m.history.length > 10)
+    ? `<div class="ranges" data-ranges="${m._key}">` +
+      Object.keys(RANGE_LBL).map(r =>
+        `<button type="button" data-r="${r}" class="${r === sel ? "active" : ""}">${RANGE_LBL[r]}</button>`
+      ).join("") + `</div>` : "";
   return `<div class="${hero ? "hero-card" : "card"}">` +
     `<div class="lbl">${m.label}</div>` +
     `<div class="meta"><output>${fmt(m.value)}<span class="unit">${m.unit}</span></output>${chipHtml(m)}</div>` +
     `<div class="meta"><span class="date">${m.date || ""}</span>${rangeTxt}${note}</div>` +
-    chartHtml(m.history, hero, tall ? 124 : undefined) + `</div>`;
+    btns + chartHtml(hv, hero, tall ? 124 : undefined) + `</div>`;
 }
 
-const M = DATA.metrics || {};
-Object.keys(M).forEach(k => M[k]._key = k);
-document.getElementById("asof").textContent = `数据截至 ${DATA.as_of}`;
-document.getElementById("hero").innerHTML = HERO_KEYS.map(k => cardHtml(M[k], true)).join("");
-document.getElementById("body-sections").innerHTML = SECTION_ORDER.map(sk => {
-  const sec = (DATA.sections || {})[sk];
-  if (!sec) return "";
-  const keys = sec.keys.filter(k => !HERO_KEYS.includes(k));
-  if (!keys.length) return "";
-  const big = sk === "us_stocks";
-  return `<section><h2>${sec.title}<span class="src">${SECTION_SRC[sk] || ""}</span></h2>` +
-    `<div class="cards ${keys.length <= 2 ? "n2" : ""} ${big ? "big" : ""}">` +
-    keys.map(k => cardHtml(M[k], false, big)).join("") + `</div></section>`;
-}).join("");
-const warns = (DATA.notes || []).map(n => `<div class="warn">⚠ ${n}</div>`).join("");
-document.getElementById("footer").innerHTML =
-  warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
-  `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-  `<div class="gen">生成时间 2026-08-17 09:46(Asia/Shanghai)</div>`;
+function renderAll() {
+  const M = DATA.metrics || {};
+  Object.keys(M).forEach(k => M[k]._key = k);
+  document.getElementById("asof").textContent = `数据截至 ${DATA.as_of}`;
+  document.getElementById("hero").innerHTML = HERO_KEYS.map(k => cardHtml(M[k], true)).join("");
+  document.getElementById("body-sections").innerHTML = SECTION_ORDER.map(sk => {
+    const sec = (DATA.sections || {})[sk];
+    if (!sec) return "";
+    const keys = sec.keys.filter(k => !HERO_KEYS.includes(k));
+    if (!keys.length) return "";
+    const big = sk === "us_stocks";
+    return `<section><h2>${sec.title}<span class="src">${SECTION_SRC[sk] || ""}</span></h2>` +
+      `<div class="cards ${keys.length <= 2 ? "n2" : ""} ${big ? "big" : ""}">` +
+      keys.map(k => cardHtml(M[k], false, big)).join("") + `</div></section>`;
+  }).join("");
+  const warns = (DATA.notes || []).map(n => `<div class="warn">⚠ ${n}</div>`).join("");
+  document.getElementById("footer").innerHTML =
+    warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
+    `<div>本页面数据仅供参考,不构成投资建议。</div>` +
+    `<div class="gen">生成时间 2026-08-17 09:56(Asia/Shanghai)</div>`;
+}
+renderAll();
+document.addEventListener("click", e => {
+  const b = e.target && e.target.closest ? e.target.closest("button[data-r]") : null;
+  if (!b) return;
+  rangeSel[b.parentElement.dataset.ranges] = b.dataset.r;
+  renderAll();
+});
 </script>
 </body>
 </html>
