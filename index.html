@@ -59,6 +59,7 @@
     border: 1px solid var(--border); border-radius: 5px; padding: 1px 7px; background: var(--card);
   }
   .cards { display: grid; gap: 14px; grid-template-columns: repeat(5, 1fr); }
+  .cards.n1 { grid-template-columns: repeat(3, 1fr); }
   .cards.n2 { grid-template-columns: repeat(2, 1fr); }
   .cards.big { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 680px) {
@@ -73,6 +74,7 @@
   .ga0 { stop-color: var(--accent); stop-opacity: .20; }
   .ga1 { stop-color: var(--accent); stop-opacity: .02; }
   .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .line.thin { stroke-width: 1.3; }
   .chart .avg { stroke: var(--text4); stroke-width: 1; stroke-dasharray: 4 3; opacity: .8; }
   .chart .ext { fill: #fff; stroke: var(--text3); stroke-width: 1.2; }
   .chart .dot { fill: var(--accent); stroke: #fff; stroke-width: 1.5; }
@@ -108,6 +110,7 @@
     body { padding: 18px 10px 36px; }
     .hero { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cards.n1 { grid-template-columns: 1fr; }
     .hero-card output { font-size: 26px; }
     h1 { font-size: 21px; }
   }
@@ -141,6 +144,7 @@ const SECTION_SRC = {
   us_trade: "EIA · 周度", china: "聚源 · 周度", oecd: "聚源 · 季度"
 };
 const EXTRA_LABEL = { oecd_stocks: "环比为上季变动" };
+const THIN_LINES = { crude_exports: 1 };
 
 function fmt(v) {
   if (v === null || v === undefined || Number.isNaN(v)) return "—";
@@ -171,7 +175,7 @@ function smoothPath(pts, yMin, yMax) {
   }
   return d;
 }
-function chartHtml(hist, big, ch) {
+function chartHtml(hist, big, ch, thin) {
   if (!hist || hist.length < 2) return "";
   const w = 200, h = ch || (big ? 104 : 66);
   const padL = 4, padR = 4, padT = 16, padB = 14;
@@ -212,7 +216,7 @@ function chartHtml(hist, big, ch) {
     grid +
     `<line class="avg" x1="0" y1="${avgY}" x2="${w}" y2="${avgY}"/>` +
     `<path class="area" d="${area}" fill="url(#${gid})"/>` +
-    `<path class="line" d="${line}"/>` +
+    `<path class="line${thin ? " thin" : ""}" d="${line}"/>` +
     (showMin ? `<circle class="ext" cx="${pts[mi][0].toFixed(1)}" cy="${pts[mi][1].toFixed(1)}" r="2"/>` : "") +
     (showMax ? `<circle class="ext" cx="${pts[xi][0].toFixed(1)}" cy="${pts[xi][1].toFixed(1)}" r="2"/>` : "") +
     `<circle class="dot" cx="${pts[li][0].toFixed(1)}" cy="${pts[li][1].toFixed(1)}" r="3"/></svg>` +
@@ -250,7 +254,7 @@ function cardHtml(m, hero, tall) {
     `<div class="lbl">${m.label}</div>` +
     `<div class="meta"><output>${fmt(m.value)}<span class="unit">${m.unit}</span></output>${chipHtml(m)}</div>` +
     `<div class="meta"><span class="date">${m.date || ""}</span>${rangeTxt}${note}</div>` +
-    btns + chartHtml(hv, hero, tall ? 124 : undefined) + `</div>`;
+    btns + chartHtml(hv, hero, tall ? 124 : undefined, THIN_LINES[m._key]) + `</div>`;
 }
 
 function renderAll() {
@@ -263,16 +267,17 @@ function renderAll() {
     if (!sec) return "";
     const keys = sec.keys.filter(k => !HERO_KEYS.includes(k));
     if (!keys.length) return "";
-    const big = sk === "us_stocks";
+    const big = sk === "us_stocks" || sk === "china";
+    const cols = keys.length === 1 ? "n1" : keys.length === 2 ? "n2" : "";
     return `<section><h2>${sec.title}<span class="src">${SECTION_SRC[sk] || ""}</span></h2>` +
-      `<div class="cards ${keys.length <= 2 ? "n2" : ""} ${big ? "big" : ""}">` +
+      `<div class="cards ${cols} ${big ? "big" : ""}">` +
       keys.map(k => cardHtml(M[k], false, big)).join("") + `</div></section>`;
   }).join("");
   const warns = (DATA.notes || []).map(n => `<div class="warn">⚠ ${n}</div>`).join("");
   document.getElementById("footer").innerHTML =
     warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
     `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-    `<div class="gen">生成时间 2026-08-17 09:56(Asia/Shanghai)</div>`;
+    `<div class="gen">生成时间 2026-08-17 10:17(Asia/Shanghai)</div>`;
 }
 renderAll();
 document.addEventListener("click", e => {
