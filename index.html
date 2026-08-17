@@ -114,7 +114,7 @@
     <span class="asof" id="asof"></span>
     <span class="freq">每周五自动更新 · 本页为生成时点快照</span>
   </div>
-  <p class="lede">美国 EIA 周度石油数据 · 中国聚源炼厂与库存周度数据 · OECD 季度库存 — 虚线为十年区间均值</p>
+  <p class="lede">美国 EIA 周度石油数据 · 中国聚源炼厂与库存周度数据 · OECD 季度库存 — 虚线为十年均值 · 纵轴按 3%–97% 分位缩放以突出波动</p>
 
   <div class="hero" id="hero"></div>
   <div id="body-sections"></div>
@@ -166,9 +166,14 @@ function chartHtml(hist, big, ch) {
   const w = 200, h = ch || (big ? 104 : 66);
   const padL = 4, padR = 4, padT = 16, padB = 14;
   const vs = hist.map(p => p[1]);
-  const min = Math.min(...vs), max = Math.max(...vs), span = (max - min) || 1;
+  const min = Math.min(...vs), max = Math.max(...vs);
+  // 纵轴按 3%–97% 分位缩放(防极端值压平曲线), 超出部分贴边截断
+  const sorted = [...vs].sort((a, b) => a - b);
+  const q = f => sorted[Math.min(sorted.length - 1, Math.floor(f * (sorted.length - 1)))];
+  const pad6 = (q(0.97) - q(0.03)) * 0.06 || 1;
+  const lo = q(0.03) - pad6, hi = q(0.97) + pad6, span = (hi - lo) || 1;
   const X = i => padL + i * (w - padL - padR) / (hist.length - 1);
-  const Y = v => h - padB - (v - min) / span * (h - padT - padB);
+  const Y = v => h - padB - (Math.min(hi, Math.max(lo, v)) - lo) / span * (h - padT - padB);
   const pts = hist.map((p, i) => [X(i), Y(p[1])]);
   const line = smoothPath(pts, padT - 4, h - padB + 3);
   const base = h - padB;
@@ -187,8 +192,9 @@ function chartHtml(hist, big, ch) {
   const lastAbove = pts[li][1] - 10 < 2;
   labels += `<span class="c-lab last" style="${pct(pts[li][0] - 8, lastAbove ? pts[li][1] + 10 : pts[li][1] - 10)}">${fmt(vs[li])}</span>`;
   const far = i => Math.abs(i - li) > hist.length * 0.12;
-  if (far(mi)) labels += `<span class="c-lab" style="${pct(pts[mi][0], Math.min(pts[mi][1] + 9, h - 4))}">${fmt(min)}</span>`;
-  if (far(xi)) labels += `<span class="c-lab" style="${pct(pts[xi][0], Math.max(pts[xi][1] - 9, 4))}">${fmt(max)}</span>`;
+  const showMin = far(mi) && min >= lo, showMax = far(xi) && max <= hi;
+  if (showMin) labels += `<span class="c-lab" style="${pct(pts[mi][0], Math.min(pts[mi][1] + 9, h - 4))}">${fmt(min)}</span>`;
+  if (showMax) labels += `<span class="c-lab" style="${pct(pts[xi][0], Math.max(pts[xi][1] - 9, 4))}">${fmt(max)}</span>`;
   return `<div class="chart" style="height:${h}px" role="img" aria-label="历史走势, 区间 ${fmt(min)} 至 ${fmt(max)}">` +
     `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">` +
     `<defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">` +
@@ -197,8 +203,8 @@ function chartHtml(hist, big, ch) {
     `<line class="avg" x1="0" y1="${avgY}" x2="${w}" y2="${avgY}"/>` +
     `<path class="area" d="${area}" fill="url(#${gid})"/>` +
     `<path class="line" d="${line}"/>` +
-    (far(mi) ? `<circle class="ext" cx="${pts[mi][0].toFixed(1)}" cy="${pts[mi][1].toFixed(1)}" r="2"/>` : "") +
-    (far(xi) ? `<circle class="ext" cx="${pts[xi][0].toFixed(1)}" cy="${pts[xi][1].toFixed(1)}" r="2"/>` : "") +
+    (showMin ? `<circle class="ext" cx="${pts[mi][0].toFixed(1)}" cy="${pts[mi][1].toFixed(1)}" r="2"/>` : "") +
+    (showMax ? `<circle class="ext" cx="${pts[xi][0].toFixed(1)}" cy="${pts[xi][1].toFixed(1)}" r="2"/>` : "") +
     `<circle class="dot" cx="${pts[li][0].toFixed(1)}" cy="${pts[li][1].toFixed(1)}" r="3"/></svg>` +
     labels +
     `<span class="c-date dl">${shortDate(hist[0][0])}</span>` +
@@ -237,7 +243,7 @@ const warns = (DATA.notes || []).map(n => `<div class="warn">⚠ ${n}</div>`).jo
 document.getElementById("footer").innerHTML =
   warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
   `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-  `<div class="gen">生成时间 2026-08-17 09:33(Asia/Shanghai)</div>`;
+  `<div class="gen">生成时间 2026-08-17 09:46(Asia/Shanghai)</div>`;
 </script>
 </body>
 </html>
