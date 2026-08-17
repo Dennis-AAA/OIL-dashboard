@@ -154,7 +154,7 @@
     <h1>全球原油与成品油供求看板</h1>
     <span class="asof" id="asof"></span>
     <span class="sig" id="sig" hidden></span>
-    <span class="freq">每周五自动更新 · 本页为生成时点快照</span>
+    <span class="freq">每周四自动更新 · 本页为生成时点快照</span>
   </div>
   <p class="lede">美国 EIA 周度石油数据 · 中国聚源炼厂与库存周度数据 · OECD 季度库存 — 虚线为十年均值 · 纵轴按 3%–97% 分位缩放以突出波动</p>
 
@@ -320,7 +320,7 @@ function renderAll() {
   document.getElementById("footer").innerHTML =
     warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
     `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-    `<div class="gen">生成时间 2026-08-17 13:44(Asia/Shanghai)</div>`;
+    `<div class="gen">生成时间 2026-08-17 13:51(Asia/Shanghai)</div>`;
 }
 renderAll();
 document.addEventListener("click", e => {
