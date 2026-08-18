@@ -57,7 +57,7 @@
   @media (max-width: 680px) { .brief ul { grid-template-columns: 1fr; } }
   @media print { .brief { break-inside: avoid; } }
 
-  .hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .hero { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 18px; }
   .hero-card, .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 10px;
     padding: 14px 16px 12px;
@@ -103,8 +103,8 @@
   .chart .grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 4; }
   .ga0 { stop-color: var(--accent); stop-opacity: .20; }
   .ga1 { stop-color: var(--accent); stop-opacity: .02; }
-  .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
-  .chart .line.thin { stroke-width: 1.3; }
+  .chart .line { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .line.thin { stroke-width: 1.1; }
   .chart .avg { stroke: var(--text4); stroke-width: 1; stroke-dasharray: 4 3; opacity: .8; }
   .chart .ext { fill: #fff; stroke: var(--text3); stroke-width: 1.2; }
   .chart .dot { fill: var(--accent); stroke: #fff; stroke-width: 1.5; }
@@ -346,7 +346,7 @@ function cotHtml(cot, h) {
     });
     if (pts.length < 2) return;
     paths += `<path d="${smoothPath(pts.map(p => [p[0], p[1]]), padT - 6, h - padB + 4)}" ` +
-      `fill="none" stroke="${color}" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>`;
+      `fill="none" stroke="${color}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>`;
     const lp = pts[pts.length - 1];
     dots += `<circle cx="${lp[0].toFixed(1)}" cy="${lp[1].toFixed(1)}" r="2.6" fill="${color}" stroke="#fff" stroke-width="1.2"/>`;
     lastLabels.push({ y: lp[1], color, txt: fmt(lp[2]) });
@@ -401,7 +401,7 @@ function cardHtml(m, hero, tall) {
     `<div class="lbl">${m.label}</div>` +
     `<div class="meta"><output>${fmt(m.value)}<span class="unit">${m.unit}</span></output>${chipHtml(m)}</div>` +
     `<div class="meta"><span class="date">${m.date || ""}</span>${rangeTxt}${note}</div>` +
-    btns + chartHtml(hv, hero, hero ? 96 : tall ? 130 : undefined, THIN_LINES[m._key],
+    btns + chartHtml(hv, hero, hero ? 110 : tall ? 130 : undefined, THIN_LINES[m._key],
                      m._key === "signal_score" ? [-100, 100] : null) + `</div>`;
 }
 
@@ -445,7 +445,7 @@ function renderAll() {
   document.getElementById("footer").innerHTML =
     warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
     `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-    `<div class="gen">生成时间 2026-08-18 11:31(Asia/Shanghai)</div>`;
+    `<div class="gen">生成时间 2026-08-18 11:39(Asia/Shanghai)</div>`;
 }
 renderAll();
 document.addEventListener("click", e => {
