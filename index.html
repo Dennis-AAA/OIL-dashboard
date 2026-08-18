@@ -445,7 +445,8 @@ function renderAll() {
   document.getElementById("footer").innerHTML =
     warns + (DATA.sources || []).map(s => `<div>${s}</div>`).join("") +
     `<div>本页面数据仅供参考,不构成投资建议。</div>` +
-    `<div class="gen">生成时间 2026-08-18 12:29(Asia/Shanghai)</div>`;
+    `<div><a href="https://github.com/Dennis-AAA/OIL-dashboard/tree/master/reports" target="_blank" rel="noopener">📁 历史周报归档(GitHub)</a></div>` +
+    `<div class="gen">生成时间 2026-08-18 12:31(Asia/Shanghai)</div>`;
 }
 renderAll();
 document.addEventListener("click", e => {
