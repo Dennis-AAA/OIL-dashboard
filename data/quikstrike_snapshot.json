@@ -1,0 +1,61 @@
+{
+  "extract_date": "2026-09-13",
+  "settle_date": "2026-09-11",
+  "root": "LOV6",
+  "expiry": "2026-09-17",
+  "dte": 4.02,
+  "F": 99.99,
+  "ref_vol": 62.57,
+  "call_wall": 100,
+  "put_wall": 90,
+  "rr_25d": 9.44,
+  "rr_convention": "call_minus_put",
+  "rr_note": "call-rich",
+  "atm_gamma": 0.061,
+  "oi_put_call": 1.62,
+  "chain_note": "仅含已知行权价隐含波动；伽马密度仅含先前计算的峰值（看涨约1005@100，看跌约430@90），其余行权价密度未知故不填。115无已知波动。",
+  "chain": [
+    {
+      "strike": 85,
+      "vol": 68.4,
+      "call_dens": null,
+      "put_dens": null
+    },
+    {
+      "strike": 90,
+      "vol": 62.51,
+      "call_dens": null,
+      "put_dens": 430
+    },
+    {
+      "strike": 95,
+      "vol": 61.02,
+      "call_dens": null,
+      "put_dens": null
+    },
+    {
+      "strike": 100,
+      "vol": 62.57,
+      "call_dens": 1005,
+      "put_dens": null
+    },
+    {
+      "strike": 105,
+      "vol": 68.66,
+      "call_dens": null,
+      "put_dens": null
+    },
+    {
+      "strike": 110,
+      "vol": 75.28,
+      "call_dens": null,
+      "put_dens": null
+    },
+    {
+      "strike": 115,
+      "vol": null,
+      "call_dens": null,
+      "put_dens": null
+    }
+  ]
+}
