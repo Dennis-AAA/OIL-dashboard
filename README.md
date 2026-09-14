@@ -30,7 +30,17 @@
 
 QuikStrike 数字只使用已知快照，不补全未给出的微笑/密度点。
 
-更新序列：
+## 每日更新
+
+页面上的 **刷新数据** 会在浏览器里重新拉取 Yahoo `CL=F` 与 CBOE `_OVX`（直连失败时走 Jina CORS 代理），当场重算指标并更新卡片/主图。期权快照不随此按钮更新。
+
+浏览器刷新只作用于当前标签页；重新打开页面仍用仓库里的静态 `data/series.js`。
+
+要把最新序列写进仓库并发布到 Pages：打开
+[Refresh market data](https://github.com/Dennis-AAA/OIL-dashboard/actions/workflows/refresh-data.yml)
+后点 **Run workflow**（分支选 `master`）。该 workflow 运行 `scripts/build_series.py` 并提交。
+
+本地重建：
 
 ```bash
 python3 scripts/build_series.py

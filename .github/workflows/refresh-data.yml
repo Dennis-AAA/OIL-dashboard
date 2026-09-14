@@ -1,0 +1,31 @@
+name: Refresh market data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild WTI/OVX series
+        run: python3 scripts/build_series.py
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.js data/series_3y.json data/quikstrike_snapshot.json
+          if git diff --cached --quiet; then
+            echo "No data file changes"
+            exit 0
+          fi
+          git commit -m "Refresh WTI/OVX series $(date -u +%Y-%m-%d)"
+          git push
