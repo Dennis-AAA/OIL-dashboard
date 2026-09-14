@@ -14,6 +14,7 @@
 - 已知行权价波动率微笑、已知伽马密度峰值
 - USO 股权期权卡片：ATM IV、25Δ RR、Call墙、Put墙（asof 2026-09-11）
 - USO 微笑 `#uso-smile` 与伽马 `#uso-gex`（Alpha Vantage `HISTORICAL_OPTIONS`，不是 CME CL）
+- WTI 代理记分卡：趋势 / 季节性 / 波动 / Gamma / 玩家 / 公允值 / 目标价 / 叙事，以及「方向偏好 × 波动率偏好」一行（短Δ · 长Δ · VEGA · SKEW · GAMMA · VOL体制）
 
 ## 数据文件
 
@@ -25,6 +26,7 @@
 | `data/uso_options_snapshot.json` | USO 股权期权快照（微笑 / GEX / 墙） |
 | `data/uso_options_series.json` | USO ATM IV 与 25Δ RR 约 60 个交易日 |
 | `data/indicators.json` | 主图指标与仅快照字段清单 |
+| `data/wti_scorecard.json` | WTI 代理记分卡（pills + pref row）；也嵌入 `series.js` 的 `wti_scorecard` |
 
 时间序列由 Yahoo `CL=F` 日收盘与 CBOE `_OVX` 日收盘计算：
 
@@ -57,7 +59,15 @@ USO 是上市原油 ETF 的股权期权，用作油价波动代理，**不是** 
 python3 scripts/merge_uso_into_series.py
 ```
 
-`scripts/build_series.py` 在重写 WTI/OVX 后会再跑一次合并，以免冲掉 USO 列。
+`scripts/build_series.py` 在重写 WTI/OVX 后会再跑一次合并，以免冲掉 USO 列，并嵌入 `wti_scorecard`。
+
+本地写入 / 嵌入记分卡：
+
+```bash
+python3 scripts/build_wti_scorecard.py
+```
+
+记分卡是公开数据上的代理状态，**不是**第三方专有模型复刻。公允值、目标价、玩家、叙事为占位（`value: null`），不编造数字。
 
 本地重建：
 

@@ -202,6 +202,9 @@ def main() -> None:
     merge = ROOT / "scripts" / "merge_uso_into_series.py"
     if merge.is_file() and (DATA / "uso_options_snapshot.json").is_file():
         subprocess.run([sys.executable, str(merge)], cwd=str(ROOT), check=False)
+    scorecard = ROOT / "scripts" / "build_wti_scorecard.py"
+    if scorecard.is_file() and (DATA / "wti_scorecard.json").is_file():
+        subprocess.run([sys.executable, str(scorecard)], cwd=str(ROOT), check=False)
 
 
 if __name__ == "__main__":

@@ -40,6 +40,9 @@ notes = s3.get('notes') or ''
 extra = ' USO equity options (Alpha Vantage HISTORICAL_OPTIONS) are an oil-price proxy — not CME CL futures options; QuikStrike remains the CL side.'
 if 'USO equity options' not in notes:
     s3['notes'] = (notes + extra).strip()
+sc_path = root / 'wti_scorecard.json'
+if sc_path.is_file():
+    s3['wti_scorecard'] = json.loads(sc_path.read_text())
 (root/'series_3y.json').write_text(json.dumps(s3, ensure_ascii=False, indent=2) + '\n')
 (root/'series.js').write_text('window.OIL_DASHBOARD_DATA = ' + json.dumps(s3, ensure_ascii=False) + ';\n')
 print('merged', sum(1 for r in s3['series'] if r.get('uso_atm_iv') is not None), 'uso points')
