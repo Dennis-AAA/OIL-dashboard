@@ -163,6 +163,9 @@ def embed(card: dict) -> None:
         return
     payload = json.loads(series_path.read_text(encoding="utf-8"))
     payload["wti_scorecard"] = card
+    mx_path = DATA / "multi_pref_matrix.json"
+    if mx_path.is_file():
+        payload["multi_pref_matrix"] = json.loads(mx_path.read_text(encoding="utf-8"))
     series_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

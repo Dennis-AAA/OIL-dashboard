@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/series.js data/series_3y.json data/uso_options_snapshot.json data/uso_options_series.json data/indicators.json data/wti_scorecard.json
+          git add data/series.js data/series_3y.json data/uso_options_snapshot.json data/uso_options_series.json data/indicators.json data/wti_scorecard.json data/multi_pref_matrix.json
           if git diff --cached --quiet; then
             echo "No data file changes"
             exit 0

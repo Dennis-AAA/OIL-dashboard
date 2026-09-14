@@ -1,0 +1,296 @@
+{
+  "asof": "2026-09-14",
+  "source_note": "Yahoo chart OHLC；WTI pref_row from wti_scorecard.json；options snapshot asof 2026-09-11 (AV HISTORICAL_OPTIONS)；VIX for ES vol；GVZ for gold vol — Alpha Vantage HISTORICAL_OPTIONS when available; degraded to price+public vol indices otherwise. Not proprietary model copy.",
+  "rows": [
+    {
+      "id": "ES",
+      "name": "美股 ES",
+      "symbol": "ES=F",
+      "short_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近20日 -2.3%"
+      },
+      "long_delta": {
+        "label": "偏多 · 结构",
+        "score": 1,
+        "hint": "近60日/结构 2.7%"
+      },
+      "vega": {
+        "label": "卖波",
+        "hint": "IV−RV 7.0495 (VIX)"
+      },
+      "skew": {
+        "label": "偏空 RR",
+        "hint": "RR25 -2.93"
+      },
+      "gamma": {
+        "label": "风暴 · 偏多",
+        "hint": "墙 dens tilt 0.31"
+      },
+      "vol_regime": {
+        "label": "中性",
+        "hint": "VIX分位 40.74%"
+      },
+      "inputs": {
+        "px": 7623.25,
+        "ret20": -2.3286,
+        "ret60": 2.6769,
+        "sma50": 7636.13,
+        "sma200": 7192.9905,
+        "rv20": 8.7905,
+        "iv": 15.84,
+        "iv_src": "VIX",
+        "rr25": -2.93,
+        "rr_z": null,
+        "vol_pctile": 40.74
+      },
+      "heat": 2.0
+    },
+    {
+      "id": "ZN",
+      "name": "美债 ZN",
+      "symbol": "ZN=F",
+      "short_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近20日 -2.2%"
+      },
+      "long_delta": {
+        "label": "偏空 · 结构",
+        "score": -1,
+        "hint": "近60日/结构 -3.3%"
+      },
+      "vega": {
+        "label": "卖波",
+        "hint": "IV−RV 6.4309 (TLT ATM IV)"
+      },
+      "skew": {
+        "label": "中性 RR",
+        "hint": "RR25 -0.98"
+      },
+      "gamma": {
+        "label": "风暴 · 偏空",
+        "hint": "墙 dens tilt -0.53"
+      },
+      "vol_regime": {
+        "label": "中性",
+        "hint": "RV20分位 44.59%"
+      },
+      "inputs": {
+        "px": 106.234375,
+        "ret20": -2.1586,
+        "ret60": -3.2584,
+        "sma50": 108.4219,
+        "sma200": 110.6709,
+        "rv20": 3.8371,
+        "iv": 10.268,
+        "iv_src": "TLT ATM IV",
+        "rr25": -0.98,
+        "rr_z": null,
+        "vol_pctile": 44.59
+      },
+      "heat": 2.0
+    },
+    {
+      "id": "EUR",
+      "name": "欧元 EUR",
+      "symbol": "6E=F",
+      "short_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近20日 0.3%"
+      },
+      "long_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近60日/结构 0.5%"
+      },
+      "vega": {
+        "label": "卖波",
+        "hint": "IV−RV 3.6779 (FXE ATM IV)"
+      },
+      "skew": {
+        "label": "中性 RR",
+        "hint": "无25Δ RR"
+      },
+      "gamma": {
+        "label": "风暴 · 偏空",
+        "hint": "墙 dens tilt -0.97"
+      },
+      "vol_regime": {
+        "label": "中性",
+        "hint": "RV20分位 44.16%"
+      },
+      "inputs": {
+        "px": 1.1602,
+        "ret20": 0.3113,
+        "ret60": 0.4502,
+        "sma50": 1.1536,
+        "sma200": 1.1641,
+        "rv20": 4.6391,
+        "iv": 8.317,
+        "iv_src": "FXE ATM IV",
+        "rr25": null,
+        "rr_z": null,
+        "vol_pctile": 44.16
+      },
+      "heat": 1.0
+    },
+    {
+      "id": "JPY",
+      "name": "日元 JPY",
+      "symbol": "6J=F",
+      "short_delta": {
+        "label": "偏多",
+        "score": 1,
+        "hint": "近20日 4.2%"
+      },
+      "long_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近60日/结构 4.7%"
+      },
+      "vega": {
+        "label": "买波",
+        "hint": "IV−RV -4.7043 (FXY ATM IV)"
+      },
+      "skew": {
+        "label": "中性 RR",
+        "hint": "无25Δ RR"
+      },
+      "gamma": {
+        "label": "风暴 · 偏多",
+        "hint": "墙 dens tilt 0.99"
+      },
+      "vol_regime": {
+        "label": "混沌",
+        "hint": "RV20分位 90.48%"
+      },
+      "inputs": {
+        "px": 0.006537,
+        "ret20": 4.1833,
+        "ret60": 4.7341,
+        "sma50": 0.0063,
+        "sma200": 0.0063,
+        "rv20": 11.0703,
+        "iv": 6.366,
+        "iv_src": "FXY ATM IV",
+        "rr25": null,
+        "rr_z": null,
+        "vol_pctile": 90.48
+      },
+      "heat": 2.5
+    },
+    {
+      "id": "GC",
+      "name": "黄金 GC",
+      "symbol": "GC=F",
+      "short_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近20日 -0.1%"
+      },
+      "long_delta": {
+        "label": "中性",
+        "score": 0,
+        "hint": "近60日/结构 0.4%"
+      },
+      "vega": {
+        "label": "卖波",
+        "hint": "IV−RV 2.0004 (GVZ)"
+      },
+      "skew": {
+        "label": "中性 RR",
+        "hint": "RR25 0.00"
+      },
+      "gamma": {
+        "label": "风暴 · 偏多",
+        "hint": "墙 dens tilt 0.49"
+      },
+      "vol_regime": {
+        "label": "混沌",
+        "hint": "GVZ分位 82.07%"
+      },
+      "inputs": {
+        "px": 4374.299805,
+        "ret20": -0.1393,
+        "ret60": 0.3533,
+        "sma50": 4271.184,
+        "sma200": 4528.2175,
+        "rv20": 23.6796,
+        "iv": 25.68,
+        "iv_src": "GVZ",
+        "rr25": 0.0,
+        "rr_z": null,
+        "vol_pctile": 82.07
+      },
+      "heat": 1.5
+    },
+    {
+      "id": "WTI",
+      "name": "WTI CL",
+      "symbol": "CL=F / USO / OVX",
+      "short_delta": {
+        "label": "偏多",
+        "score": 1,
+        "hint": "近20日 23.1%"
+      },
+      "long_delta": {
+        "label": "偏多 · 结构",
+        "score": 1,
+        "hint": "近60日/结构 31.6%"
+      },
+      "vega": {
+        "label": "卖波",
+        "hint": "IV−RV 18.5835"
+      },
+      "skew": {
+        "label": "偏多 RR",
+        "hint": "RR25 8.78"
+      },
+      "gamma": {
+        "label": "风暴 · 偏多",
+        "hint": "z≈1.04"
+      },
+      "vol_regime": {
+        "label": "混沌",
+        "hint": "OVX分位 90.34%"
+      },
+      "heat": 3.5,
+      "inputs": {
+        "wti": 100.05,
+        "sma50": 83.2278,
+        "sma200": 79.5861,
+        "ovx": 58.92,
+        "ovx_pctile": 90.34,
+        "iv_rv20": 18.5835,
+        "uso_atm_iv": 58.0715,
+        "uso_rr25": 8.78
+      }
+    }
+  ],
+  "report": {
+    "_sys": [
+      "AV key present: True"
+    ],
+    "ES": [
+      "price from ES=F"
+    ],
+    "ZN": [
+      "price from ZN=F"
+    ],
+    "EUR": [
+      "price from 6E=F"
+    ],
+    "JPY": [
+      "price from 6J=F"
+    ],
+    "GC": [
+      "price from GC=F"
+    ],
+    "WTI": [
+      "reused wti_scorecard"
+    ]
+  }
+}

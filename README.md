@@ -14,7 +14,8 @@
 - 已知行权价波动率微笑、已知伽马密度峰值
 - USO 股权期权卡片：ATM IV、25Δ RR、Call墙、Put墙（asof 2026-09-11）
 - USO 微笑 `#uso-smile` 与伽马 `#uso-gex`（Alpha Vantage `HISTORICAL_OPTIONS`，不是 CME CL）
-- WTI 代理记分卡：趋势 / 季节性 / 波动 / Gamma / 玩家 / 公允值 / 目标价 / 叙事，以及「方向偏好 × 波动率偏好」一行（短Δ · 长Δ · VEGA · SKEW · GAMMA · VOL体制）
+- WTI 代理记分卡：趋势 / 季节性 / 波动 / Gamma / 玩家 / 公允值 / 目标价 / 叙事
+- 多资产「方向偏好 × 波动率偏好」六行矩阵：美股 ES / 美债 ZN / 欧元 EUR / 日元 JPY / 黄金 GC / WTI CL（短线DELTA · 长线DELTA · VEGA · SKEW · GAMMA · VOL体制）
 
 ## 数据文件
 
@@ -27,6 +28,7 @@
 | `data/uso_options_series.json` | USO ATM IV 与 25Δ RR 约 60 个交易日 |
 | `data/indicators.json` | 主图指标与仅快照字段清单 |
 | `data/wti_scorecard.json` | WTI 代理记分卡（pills + pref row）；也嵌入 `series.js` 的 `wti_scorecard` |
+| `data/multi_pref_matrix.json` | 六资产方向 × 波动偏好矩阵；嵌入 `series.js` 的 `multi_pref_matrix` |
 
 时间序列由 Yahoo `CL=F` 日收盘与 CBOE `_OVX` 日收盘计算：
 
@@ -68,6 +70,8 @@ python3 scripts/build_wti_scorecard.py
 ```
 
 记分卡是公开数据上的代理状态，**不是**第三方专有模型复刻。公允值、目标价、玩家、叙事为占位（`value: null`），不编造数字。
+
+多资产矩阵用 Yahoo 期货价格 + 公开波动率指数（VIX / GVZ / ETF ATM IV）。无 25Δ RR 时降级，不编造期权链。WTI 行复用 `wti_scorecard` 偏好。
 
 本地重建：
 
