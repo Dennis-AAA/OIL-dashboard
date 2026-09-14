@@ -1,0 +1,114 @@
+{
+  "indicators": [
+    {
+      "id": "wti",
+      "name": "WTI油价",
+      "unit": "USD/bbl",
+      "axis": "left",
+      "always_on": true,
+      "has_history": true
+    },
+    {
+      "id": "ovx",
+      "name": "OVX隐含波动率",
+      "unit": "%",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "rv20",
+      "name": "20日已实现波动",
+      "unit": "%",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "rv10",
+      "name": "10日已实现波动",
+      "unit": "%",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "iv_rv20",
+      "name": "IV−RV溢价(OVX−RV20)",
+      "unit": "vol pts",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "ovx_pctile",
+      "name": "OVX历史分位(滚动3年)",
+      "unit": "%",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "sma50",
+      "name": "WTI 50日均线",
+      "unit": "USD",
+      "axis": "left",
+      "has_history": true
+    },
+    {
+      "id": "sma200",
+      "name": "WTI 200日均线",
+      "unit": "USD",
+      "axis": "left",
+      "has_history": true
+    },
+    {
+      "id": "wti_vs_sma50",
+      "name": "WTI相对50日均线",
+      "unit": "USD",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "uso_atm_iv",
+      "name": "USO ATM IV(近月)",
+      "unit": "%",
+      "axis": "right",
+      "has_history": true
+    },
+    {
+      "id": "uso_rr25",
+      "name": "USO 25Δ风险逆转",
+      "unit": "vol pts",
+      "axis": "right",
+      "has_history": true
+    }
+  ],
+  "snapshot_only": [
+    {
+      "id": "call_wall",
+      "name": "Call墙(近月)",
+      "note": "无连续三年序列，仅最新快照"
+    },
+    {
+      "id": "put_wall",
+      "name": "Put墙(近月)",
+      "note": "无连续三年序列，仅最新快照"
+    },
+    {
+      "id": "atm_iv",
+      "name": "近月ATM IV",
+      "note": "快照"
+    },
+    {
+      "id": "uso_call_wall",
+      "name": "USO Call墙",
+      "note": "USO equity options snapshot only"
+    },
+    {
+      "id": "uso_put_wall",
+      "name": "USO Put墙",
+      "note": "USO equity options snapshot only"
+    },
+    {
+      "id": "uso_atm_iv_snap",
+      "name": "USO ATM IV快照",
+      "note": "Front expiry ATM IV from HISTORICAL_OPTIONS"
+    }
+  ]
+}

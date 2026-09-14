@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import json
 import math
+import subprocess
+import sys
 import time
 import urllib.request
 from datetime import date, datetime, timezone
@@ -197,6 +199,12 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"wrote {len(series)} rows {series[0]['date']} → {series[-1]['date']}")
+    merge = ROOT / "scripts" / "merge_uso_into_series.py"
+    if merge.is_file() and (DATA / "uso_options_snapshot.json").is_file():
+        subprocess.run([sys.executable, str(merge)], cwd=str(ROOT), check=False)
+    scorecard = ROOT / "scripts" / "build_wti_scorecard.py"
+    if scorecard.is_file() and (DATA / "wti_scorecard.json").is_file():
+        subprocess.run([sys.executable, str(scorecard)], cwd=str(ROOT), check=False)
 
 
 if __name__ == "__main__":
