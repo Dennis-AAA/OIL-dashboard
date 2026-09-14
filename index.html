@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WTI 原油指标看板</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
   <style>
     :root {
@@ -30,8 +33,8 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { background: var(--bg); color: var(--text); }
     body {
-      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei",
-        -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Noto Sans SC", "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
       letter-spacing: 0.01em;
     }
@@ -48,10 +51,26 @@
     }
     h1 { font-size: 26px; font-weight: 720; letter-spacing: 0.02em; }
     .lede { font-size: 13px; color: var(--muted); }
+    .asof-block { text-align: right; max-width: 420px; }
+    .refresh-row { display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; }
+    button.refresh {
+      font: inherit; cursor: pointer; border: 0; border-radius: 8px;
+      padding: 8px 14px; font-size: 13px; font-weight: 700;
+      background: var(--wti); color: #0b1020;
+    }
+    button.refresh:hover { filter: brightness(1.08); }
+    button.refresh:disabled { opacity: 0.55; cursor: wait; }
+    .actions-link { font-size: 12px; color: var(--ovx); white-space: nowrap; }
+    .actions-tip { margin-top: 4px; font-size: 11px; color: var(--dim); }
+    .refresh-status { margin-top: 6px; font-size: 12px; font-variant-numeric: tabular-nums; min-height: 1.2em; }
+    .refresh-status.busy { color: var(--wti); }
+    .refresh-status.ok { color: var(--good); }
+    .refresh-status.err { color: var(--bad); }
     .asof {
-      text-align: right; font-size: 12px; color: var(--muted);
+      margin-top: 8px; font-size: 12px; color: var(--muted);
       font-variant-numeric: tabular-nums; line-height: 1.7;
     }
+    @media (max-width: 700px) { .asof-block { text-align: left; max-width: none; } }
     .kpis {
       display: grid; gap: 10px; margin-top: 16px;
       grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -135,7 +154,15 @@
         <h1>原油指标看板</h1>
         <p class="lede">近三年 WTI 价格、原油波动率指数、已实现波动与近月期权结构快照</p>
       </div>
-      <div class="asof" id="asof"></div>
+      <div class="asof-block">
+        <div class="refresh-row">
+          <button type="button" class="refresh" id="refreshBtn">刷新数据</button>
+          <a class="actions-link" href="https://github.com/Dennis-AAA/OIL-dashboard/actions/workflows/refresh-data.yml" target="_blank" rel="noopener">用 GitHub Actions 更新并发布</a>
+        </div>
+        <div class="actions-tip">打开后点 Run workflow（分支选 master）。按钮只更新本页；写入公开站点请用 Actions。</div>
+        <div class="refresh-status" id="refreshStatus"></div>
+        <div class="asof" id="asof"></div>
+      </div>
     </header>
 
     <section class="kpis" id="kpis"></section>
@@ -146,7 +173,7 @@
     </div>
     <section class="panel"><div id="mainChart" class="chart"></div></section>
 
-    <h2 class="section-title">QuikStrike 快照 <span>LOV6 · 提取 2026-09-13 · 结算 2026-09-11</span></h2>
+    <h2 class="section-title">期权快照（需重新抓取 QuikStrike） <span>LOV6 · 提取 2026-09-13 · 结算 2026-09-11 · 不随刷新按钮更新</span></h2>
     <section class="qs-grid" id="qs"></section>
 
     <div class="split">
@@ -155,10 +182,11 @@
     </div>
 
     <footer>
-      价格：Yahoo Finance <code>CL=F</code> 日收盘。波动率指数：CBOE <code>_OVX</code> 日收盘。
+      价格：Yahoo Finance <code>CL=F</code> 日收盘。波动率指数：CBOE <code>_OVX</code> 日收盘（失败时回退 Yahoo <code>^OVX</code>）。
       已实现波动：<code>100 × √(252 × mean(r², n))</code>，<code>r = ln(P<sub>t</sub>/P<sub>t-1</sub>)</code>。
       IV−RV20 = OVX − RV20。OVX 分位为近 252 个有效收盘的百分位。
-      QuikStrike 仅嵌入已知快照，未补全未知行权价或密度。
+      「刷新数据」在浏览器内重拉 WTI/OVX；直连被 CORS 拦截时走 <code>r.jina.ai</code> 代理。
+      期权快照仅嵌入已知 QuikStrike 数字，不随按钮更新。
       数据仅供研究参考，不构成投资建议。
       源码与 JSON：<a href="https://github.com/Dennis-AAA/OIL-dashboard">Dennis-AAA/OIL-dashboard</a>
     </footer>
@@ -172,8 +200,12 @@
       throw new Error("OIL_DASHBOARD_DATA missing");
     }
 
-    const series = DATA.series;
+    const DISPLAY_START = (DATA.meta && DATA.meta.display_start) || "2023-09-11";
+    let series = DATA.series;
     const qs = DATA.quikstrike;
+    const fmt = (v, d = 2) => v === null || v === undefined || Number.isNaN(v) ? "—" : Number(v).toFixed(d);
+    const cls = (v) => v === null || v === undefined ? "neu" : (v > 0 ? "up" : (v < 0 ? "dn" : "neu"));
+
     const last = (key) => {
       for (let i = series.length - 1; i >= 0; i--) {
         const v = series[i][key];
@@ -181,32 +213,42 @@
       }
       return { v: null, date: series[series.length - 1].date };
     };
-    const fmt = (v, d = 2) => v === null || v === undefined ? "—" : Number(v).toFixed(d);
-    const cls = (v) => v === null ? "neu" : (v > 0 ? "up" : (v < 0 ? "dn" : "neu"));
 
-    const wti = last("wti");
-    const vs50 = last("wti_vs_sma50");
-    const ovx = last("ovx");
-    const pct = last("ovx_pctile");
-    const rv20 = last("rv20");
-    const spr = last("iv_rv20");
+    function setStatus(kind, text) {
+      const el = document.getElementById("refreshStatus");
+      el.className = "refresh-status" + (kind ? " " + kind : "");
+      el.textContent = text;
+    }
 
-    document.getElementById("asof").innerHTML =
-      `序列 ${DATA.meta.display_start} → ${DATA.meta.display_end}<br>` +
-      `${DATA.meta.n_obs} 个交易日 · 生成 ${DATA.meta.generated_at}<br>` +
-      `OVX 最新 ${ovx.date} · WTI 最新 ${wti.date}`;
+    function renderAsof(extra) {
+      const wti = last("wti");
+      const ovx = last("ovx");
+      const meta = DATA.meta || {};
+      document.getElementById("asof").innerHTML =
+        `序列 ${DISPLAY_START} → ${series[series.length - 1].date}<br>` +
+        `${series.length} 个交易日 · 生成 ${meta.generated_at || "—"}${extra ? "<br>" + extra : ""}<br>` +
+        `OVX 最新 ${ovx.date} · WTI 最新 ${wti.date}`;
+    }
 
-    const kpis = [
-      ["WTI", fmt(wti.v, 2), "美元/桶", wti.date, "neu"],
-      ["相对 SMA50", (vs50.v > 0 ? "+" : "") + fmt(vs50.v, 2) + "%", "价格偏离均线", vs50.date, cls(vs50.v)],
-      ["OVX", fmt(ovx.v, 2), "原油波动率指数", ovx.date, "neu"],
-      ["OVX 一年分位", fmt(pct.v, 1) + "%", "近 252 日百分位", pct.date, "neu"],
-      ["RV20", fmt(rv20.v, 2), "20 日已实现波动", rv20.date, "neu"],
-      ["IV − RV20", (spr.v > 0 ? "+" : "") + fmt(spr.v, 2), "OVX 减 RV20", spr.date, cls(spr.v)],
-    ];
-    document.getElementById("kpis").innerHTML = kpis.map(([l, v, u, d, c]) =>
-      `<article class="kpi"><div class="lbl">${l}</div><div class="val ${c}">${v}<small>${u}</small></div><div class="sub">${d}</div></article>`
-    ).join("");
+    function renderKpis() {
+      const wti = last("wti");
+      const vs50 = last("wti_vs_sma50");
+      const ovx = last("ovx");
+      const pct = last("ovx_pctile");
+      const rv20 = last("rv20");
+      const spr = last("iv_rv20");
+      const kpis = [
+        ["WTI", fmt(wti.v, 2), "美元/桶", wti.date, "neu"],
+        ["相对 SMA50", (vs50.v > 0 ? "+" : "") + fmt(vs50.v, 2) + "%", "价格偏离均线", vs50.date, cls(vs50.v)],
+        ["OVX", fmt(ovx.v, 2), "原油波动率指数", ovx.date, "neu"],
+        ["OVX 一年分位", fmt(pct.v, 1) + "%", "近 252 日百分位", pct.date, "neu"],
+        ["RV20", fmt(rv20.v, 2), "20 日已实现波动", rv20.date, "neu"],
+        ["IV − RV20", (spr.v > 0 ? "+" : "") + fmt(spr.v, 2), "OVX 减 RV20", spr.date, cls(spr.v)],
+      ];
+      document.getElementById("kpis").innerHTML = kpis.map(([l, v, u, d, c]) =>
+        `<article class="kpi"><div class="lbl">${l}</div><div class="val ${c}">${v}<small>${u}</small></div><div class="sub">${d}</div></article>`
+      ).join("");
+    }
 
     const qsCards = [
       ["远期 F", fmt(qs.F, 2), "结算 " + qs.settle_date],
@@ -368,6 +410,190 @@
       });
     }
 
+    function parseMaybeJson(text) {
+      const trimmed = String(text).trim();
+      try { return JSON.parse(trimmed); } catch (_) {}
+      const start = trimmed.indexOf("{");
+      const end = trimmed.lastIndexOf("}");
+      if (start >= 0 && end > start) return JSON.parse(trimmed.slice(start, end + 1));
+      throw new Error("响应不是 JSON");
+    }
+
+    async function fetchRaw(url) {
+      const attempts = [
+        { label: "直接请求", href: url, headers: {} },
+        { label: "Jina CORS 代理", href: "https://r.jina.ai/" + url, headers: { "X-Return-Format": "text" } },
+        { label: "corsproxy.io", href: "https://corsproxy.io/?" + encodeURIComponent(url), headers: {} },
+      ];
+      const errors = [];
+      for (const a of attempts) {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 28000);
+        try {
+          const resp = await fetch(a.href, { cache: "no-store", headers: a.headers, signal: ctrl.signal });
+          if (!resp.ok) throw new Error(a.label + " HTTP " + resp.status);
+          const text = await resp.text();
+          if (!text || text.length < 20) throw new Error(a.label + " 空响应");
+          return { text, via: a.label };
+        } catch (e) {
+          errors.push(e && e.name === "AbortError" ? a.label + " 超时" : (e.message || String(e)));
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+      throw new Error(errors.join("；"));
+    }
+
+    function nyDate(tsSec) {
+      return new Date(tsSec * 1000).toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+    }
+
+    function parseYahooCloses(raw) {
+      const result = raw && raw.chart && raw.chart.result && raw.chart.result[0];
+      if (!result || !result.timestamp) throw new Error("Yahoo 返回缺少 chart.result");
+      const closes = result.indicators.quote[0].close;
+      const map = new Map();
+      result.timestamp.forEach((ts, i) => {
+        const close = closes[i];
+        if (close === null || close === undefined) return;
+        map.set(nyDate(ts), Number(close));
+      });
+      return map;
+    }
+
+    function parseOvxMap(raw) {
+      const map = new Map();
+      if (raw && Array.isArray(raw.data)) {
+        raw.data.forEach((row) => {
+          const v = Number(row.close);
+          if (row.date && Number.isFinite(v)) map.set(row.date, v);
+        });
+        return map;
+      }
+      return parseYahooCloses(raw);
+    }
+
+    function rnd(x, n) {
+      return x === null || x === undefined || Number.isNaN(x) ? null : Number(x.toFixed(n));
+    }
+
+    function computeSeries(wtiMap, ovxMap) {
+      const dates = Array.from(wtiMap.keys()).sort();
+      const rows = dates.map((date) => ({ date, wti: wtiMap.get(date) }));
+      rows.forEach((row, i) => {
+        if (i === 0) row.r = null;
+        else {
+          const prev = rows[i - 1].wti;
+          row.r = prev > 0 && row.wti > 0 ? Math.log(row.wti / prev) : null;
+        }
+      });
+      const rvAt = (i, n) => {
+        const rets = [];
+        for (let j = i; j >= 0 && rets.length < n; j--) {
+          if (rows[j].r !== null) rets.push(rows[j].r);
+        }
+        if (rets.length < n) return null;
+        const meanSq = rets.reduce((s, x) => s + x * x, 0) / n;
+        return 100 * Math.sqrt(252 * meanSq);
+      };
+      const smaAt = (i, n) => {
+        if (i + 1 < n) return null;
+        let s = 0;
+        for (let k = i - n + 1; k <= i; k++) s += rows[k].wti;
+        return s / n;
+      };
+      const ovxHist = [];
+      const out = [];
+      rows.forEach((row, i) => {
+        const ovx = ovxMap.has(row.date) ? ovxMap.get(row.date) : null;
+        const rv10 = rvAt(i, 10);
+        const rv20 = rvAt(i, 20);
+        const sma50 = smaAt(i, 50);
+        const sma200 = smaAt(i, 200);
+        let ovxPctile = null;
+        if (ovx !== null) {
+          ovxHist.push(ovx);
+          const window = ovxHist.slice(-252);
+          if (window.length >= 20) {
+            const below = window.filter((x) => x < ovx).length;
+            const equal = window.filter((x) => x === ovx).length;
+            ovxPctile = 100 * (below + 0.5 * equal) / window.length;
+          }
+        }
+        if (row.date < DISPLAY_START) return;
+        out.push({
+          date: row.date,
+          wti: rnd(row.wti, 4),
+          ovx: rnd(ovx, 4),
+          rv10: rnd(rv10, 4),
+          rv20: rnd(rv20, 4),
+          iv_rv20: rnd(ovx === null || rv20 === null ? null : ovx - rv20, 4),
+          sma50: rnd(sma50, 4),
+          sma200: rnd(sma200, 4),
+          ovx_pctile: rnd(ovxPctile, 2),
+          wti_vs_sma50: rnd(sma50 ? 100 * (row.wti / sma50 - 1) : null, 4),
+        });
+      });
+      if (out.length < 20) throw new Error("重算后有效交易日过少");
+      return out;
+    }
+
+    function yahooUrl(symbol) {
+      const period1 = Math.floor(Date.UTC(2022, 10, 1) / 1000);
+      const period2 = Math.floor(Date.now() / 1000);
+      return "https://query1.finance.yahoo.com/v8/finance/chart/" + symbol +
+        "?period1=" + period1 + "&period2=" + period2 + "&interval=1d&events=div%2Csplit&includePrePost=false";
+    }
+
+    async function refreshMarket() {
+      const btn = document.getElementById("refreshBtn");
+      btn.disabled = true;
+      setStatus("busy", "刷新中…");
+      const notes = [];
+      try {
+        const wtiHit = await fetchRaw(yahooUrl("CL=F"));
+        notes.push("WTI " + wtiHit.via);
+        const wtiMap = parseYahooCloses(parseMaybeJson(wtiHit.text));
+        if (wtiMap.size < 50) throw new Error("WTI 序列过短");
+
+        let ovxMap = new Map();
+        try {
+          const ovxHit = await fetchRaw("https://cdn.cboe.com/api/global/delayed_quotes/charts/historical/_OVX.json");
+          ovxMap = parseOvxMap(parseMaybeJson(ovxHit.text));
+          notes.push("OVX/CBOE " + ovxHit.via);
+        } catch (ovxErr) {
+          try {
+            const yOvx = await fetchRaw(yahooUrl("%5EOVX"));
+            ovxMap = parseOvxMap(parseMaybeJson(yOvx.text));
+            notes.push("OVX/Yahoo " + yOvx.via);
+          } catch (yErr) {
+            notes.push("OVX 失败：" + (ovxErr.message || ovxErr) + " / " + (yErr.message || yErr));
+          }
+        }
+
+        series = computeSeries(wtiMap, ovxMap);
+        DATA.series = series;
+        DATA.meta = DATA.meta || {};
+        DATA.meta.display_end = series[series.length - 1].date;
+        DATA.meta.n_obs = series.length;
+        DATA.meta.generated_at = new Date().toISOString();
+        renderAsof("浏览器刷新 · " + notes.join(" · "));
+        renderKpis();
+        renderMain();
+        const end = last("wti").date;
+        const ovxOk = last("ovx").v !== null;
+        setStatus(ovxOk ? "ok" : "err", (ovxOk ? "已更新至 " : "WTI 已更新至 ") + end + (ovxOk ? "" : "，但 OVX 未取到"));
+      } catch (e) {
+        setStatus("err", "刷新失败：" + (e.message || e) + "。可改用 GitHub Actions 更新并发布。");
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", refreshMarket);
+
+    renderAsof();
+    renderKpis();
     renderMain();
     renderSmile();
     renderGex();
