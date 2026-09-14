@@ -1,0 +1,40 @@
+name: Refresh USO options
+
+on:
+  schedule:
+    - cron: "20 21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Merge USO options into series
+        env:
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+        run: |
+          if [ -z "${ALPHAVANTAGE_API_KEY}" ]; then
+            echo "ALPHAVANTAGE_API_KEY is not set; skipping USO options refresh."
+            exit 0
+          fi
+          python3 scripts/merge_uso_into_series.py
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.js data/series_3y.json data/uso_options_snapshot.json data/uso_options_series.json data/indicators.json
+          if git diff --cached --quiet; then
+            echo "No data file changes"
+            exit 0
+          fi
+          git commit -m "Refresh USO options series $(date -u +%Y-%m-%d)"
+          git push
