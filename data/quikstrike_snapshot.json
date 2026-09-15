@@ -1,61 +1,61 @@
 {
-  "extract_date": "2026-09-13",
-  "settle_date": "2026-09-11",
-  "root": "LOV6",
-  "expiry": "2026-09-17",
-  "dte": 4.02,
-  "F": 99.99,
-  "ref_vol": 62.57,
+  "source": "QuikStrike live LOV6 snapshot",
+  "asof_page": "2026-09-14",
+  "trade_date": "2026-09-11",
+  "F": 101.89,
+  "ref_vol": 57.42,
+  "expiry": "LOV6",
+  "expiry_date": "2026-09-17",
+  "dte": 2.71,
+  "atm_vol": 58.3,
+  "vol_95": 59.14,
+  "vol_105": 65.57,
+  "rr_25d": 7.51,
+  "rr_note": "Nearest displayed deltas: 25C 106 (0.25) and 25P 98.5 (-0.24); vol difference.",
   "call_wall": 100,
+  "call_wall_dens": 7530.684,
   "put_wall": 90,
-  "rr_25d": 9.44,
-  "rr_convention": "call_minus_put",
-  "rr_note": "call-rich",
-  "atm_gamma": 0.061,
-  "oi_put_call": 1.62,
-  "chain_note": "仅含已知行权价隐含波动；伽马密度仅含先前计算的峰值（看涨约1005@100，看跌约430@90），其余行权价密度未知故不填。115无已知波动。",
-  "chain": [
+  "put_wall_dens": 305.694,
+  "gamma_peak_strike": 101.5,
+  "gamma_peak_dens": 0.079,
+  "atm_gamma": 0.078,
+  "atm_vega": 0.03502,
+  "atm_theta": -0.419,
+  "oi_put_call": 1.15,
+  "call_oi_total": 1184296,
+  "put_oi_total": 1359391,
+  "futures_backwardation": [
     {
-      "strike": 85,
-      "vol": 68.4,
-      "call_dens": null,
-      "put_dens": null
+      "contract": "CLV6",
+      "price": 101.89,
+      "dte": 7.7,
+      "expiry": "2026-09-22",
+      "oi": 175963
     },
     {
-      "strike": 90,
-      "vol": 62.51,
-      "call_dens": null,
-      "put_dens": 430
+      "contract": "CLX6",
+      "price": 97.42,
+      "dte": 35.7,
+      "expiry": "2026-10-20",
+      "oi": 259949
     },
     {
-      "strike": 95,
-      "vol": 61.02,
-      "call_dens": null,
-      "put_dens": null
+      "contract": "CLZ6",
+      "price": 92.71,
+      "dte": 66.75,
+      "expiry": "2026-11-20",
+      "oi": 214060
     },
     {
-      "strike": 100,
-      "vol": 62.57,
-      "call_dens": 1005,
-      "put_dens": null
-    },
-    {
-      "strike": 105,
-      "vol": 68.66,
-      "call_dens": null,
-      "put_dens": null
-    },
-    {
-      "strike": 110,
-      "vol": 75.28,
-      "call_dens": null,
-      "put_dens": null
-    },
-    {
-      "strike": 115,
-      "vol": null,
-      "call_dens": null,
-      "put_dens": null
+      "contract": "CLF7",
+      "price": 88.67,
+      "dte": 97.75,
+      "expiry": "2026-12-21",
+      "oi": 102568
     }
+  ],
+  "notes": [
+    "Walls use displayed gamma multiplied by matching LOV6-only strike OI: dens_call=gamma*call_oi and dens_put=gamma*put_oi.",
+    "Vol 95/105 use nearest pricing-sheet strikes to 0.95F/1.05F."
   ]
 }
