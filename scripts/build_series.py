@@ -95,6 +95,15 @@ def rnd(x: float | None, n: int = 4) -> float | None:
 
 
 def quikstrike() -> dict:
+    series_path = DATA / "series_3y.json"
+    if series_path.is_file():
+        try:
+            prev = json.loads(series_path.read_text(encoding="utf-8"))
+            qs = prev.get("quikstrike")
+            if isinstance(qs, dict) and qs.get("chain"):
+                return qs
+        except (OSError, json.JSONDecodeError):
+            pass
     return {
         "extract_date": "2026-09-13",
         "settle_date": "2026-09-11",
@@ -193,7 +202,10 @@ def main() -> None:
     }
     DATA.mkdir(exist_ok=True)
     (DATA / "series_3y.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (DATA / "quikstrike_snapshot.json").write_text(json.dumps(qs, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    snap_path = DATA / "quikstrike_snapshot.json"
+    # Dedicated live LOV6 snapshot stays as uploaded; do not replace it with the series chain blob.
+    if not snap_path.is_file():
+        snap_path.write_text(json.dumps(qs, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (DATA / "series.js").write_text(
         "window.OIL_DASHBOARD_DATA = " + json.dumps(payload, ensure_ascii=False) + ";\n",
         encoding="utf-8",

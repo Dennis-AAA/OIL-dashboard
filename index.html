@@ -287,7 +287,7 @@
     </div>
     <section class="panel"><div id="mainChart" class="chart"></div></section>
 
-    <h2 class="section-title">期权快照（需重新抓取 QuikStrike） <span>LOV6 · 提取 2026-09-13 · 结算 2026-09-11 · 不随刷新按钮更新</span></h2>
+    <h2 class="section-title">期权快照（需重新抓取 QuikStrike） <span id="qsSectionMeta">LOV6 · 不随刷新按钮更新</span></h2>
     <section class="qs-grid" id="qs"></section>
 
     <div class="split">
@@ -324,9 +324,16 @@
       throw new Error("OIL_DASHBOARD_DATA missing");
     }
 
-    const DISPLAY_START = (DATA.meta && DATA.meta.display_start) || "2023-09-11";
+    const DISPLAY_START = (DATA.meta && DATA.meta.display_start) || DATA.start || "2023-09-11";
     let series = DATA.series;
-    const qs = DATA.quikstrike;
+    const qsRaw = DATA.quikstrike || {};
+    const qsMeta = qsRaw.meta || {};
+    const snap = DATA.latest_snapshot || {};
+    const qs = Object.assign({}, qsRaw, qsMeta, snap);
+    qs.chain = qsRaw.chain || [];
+    qs.settle_date = qs.settle_date || qs.trade_date || "";
+    qs.root = qs.root || qsMeta.expiry || qs.expiry || "LOV6";
+    qs.extract_date = qs.extract_date || qs.asof_page || qsMeta.asof || "";
     const uso = DATA.uso_options || (DATA.latest_snapshot && DATA.latest_snapshot.uso_options) || {};
     const scorecard = DATA.wti_scorecard || {};
     const prefMatrix = DATA.multi_pref_matrix || {};
@@ -353,7 +360,7 @@
       const meta = DATA.meta || {};
       document.getElementById("asof").innerHTML =
         `序列 ${DISPLAY_START} → ${series[series.length - 1].date}<br>` +
-        `${series.length} 个交易日 · 生成 ${meta.generated_at || "—"}${extra ? "<br>" + extra : ""}<br>` +
+        `${series.length} 个交易日 · 生成 ${meta.generated_at || DATA.as_of || "—"}${extra ? "<br>" + extra : ""}<br>` +
         `OVX 最新 ${ovx.date} · WTI 最新 ${wti.date}` +
         (uso.asof ? `<br>USO 期权 asof ${uso.asof}` + (uso.expiry ? ` · 到期 ${uso.expiry}` : "") + (uso.dte != null ? ` · DTE ${uso.dte}` : "") : "") +
         (scorecard.asof ? `<br>WTI 记分卡 asof ${scorecard.asof}` : "") +
@@ -463,13 +470,22 @@
       ).join("");
     }
 
+    const qsMetaEl = document.getElementById("qsSectionMeta");
+    if (qsMetaEl) {
+      qsMetaEl.textContent = [
+        qs.root || "LOV6",
+        qs.extract_date ? ("asof " + qs.extract_date) : "",
+        qs.settle_date ? ("交易日 " + qs.settle_date) : "",
+        "不随刷新按钮更新",
+      ].filter(Boolean).join(" · ");
+    }
     const qsCards = [
       ["远期 F", fmt(qs.F, 2), "结算 " + qs.settle_date],
       ["参考波动", fmt(qs.ref_vol, 2), qs.root + " ATM"],
       ["看涨墙", String(qs.call_wall), "Call wall"],
       ["看跌墙", String(qs.put_wall), "Put wall"],
-      ["25Δ 风险逆转", "+" + fmt(qs.rr_25d, 2), qs.rr_note === "call-rich" ? "偏看涨波动" : qs.rr_note],
-      ["ATM Gamma", fmt(qs.atm_gamma, 3), "到期 " + qs.expiry],
+      ["25Δ 风险逆转", (qs.rr_25d > 0 ? "+" : "") + fmt(qs.rr_25d, 2), qs.rr_note === "call-rich" ? "偏看涨波动" : (qs.rr_note || "")],
+      ["ATM Gamma", fmt(qs.atm_gamma, 3), "到期 " + (qs.expiry_date || qs.expiry)],
       ["Put / Call OI", fmt(qs.oi_put_call, 2), "持仓比"],
       ["剩余天数", fmt(qs.dte, 2), "DTE"],
     ];
@@ -593,12 +609,15 @@
 
     function renderSmile() {
       const chain = (qs.chain || []).filter((x) => x.vol !== null && x.vol !== undefined);
+      const xs = chain.map((x) => x.strike);
+      const xmin = xs.length ? Math.floor(Math.min(...xs) - 1) : 80;
+      const xmax = xs.length ? Math.ceil(Math.max(...xs) + 1) : 115;
       smileChart.setOption({
         backgroundColor: "transparent",
         title: { text: "波动率微笑", left: 12, top: 8, textStyle: { color: "#e8edf7", fontSize: 14, fontWeight: 600 } },
         tooltip: { trigger: "axis", backgroundColor: "#10182b", borderColor: "#24304d", textStyle: { color: "#e8edf7" } },
         grid: { left: 48, right: 18, top: 48, bottom: 36 },
-        xAxis: { type: "value", name: "行权价", min: 80, max: 115, ...axisStyle, nameTextStyle: { color: "#8b97b3" } },
+        xAxis: { type: "value", name: "行权价", min: xmin, max: xmax, ...axisStyle, nameTextStyle: { color: "#8b97b3" } },
         yAxis: { type: "value", name: "IV %", scale: true, ...axisStyle, nameTextStyle: { color: "#8b97b3" } },
         series: [{
           type: "line",
@@ -621,13 +640,15 @@
     }
 
     function renderGex() {
+      const densCall = (x) => (x.call_dens != null ? x.call_dens : x.dens_call);
+      const densPut = (x) => (x.put_dens != null ? x.put_dens : x.dens_put);
       const strikes = (qs.chain || []).map((x) => x.strike);
-      const calls = (qs.chain || []).map((x) => x.call_dens);
-      const puts = (qs.chain || []).map((x) => x.put_dens);
+      const calls = (qs.chain || []).map(densCall);
+      const puts = (qs.chain || []).map(densPut);
       gexChart.setOption({
         backgroundColor: "transparent",
         title: {
-          text: "伽马密度（已知峰值）",
+          text: "伽马密度",
           left: 12, top: 8,
           textStyle: { color: "#e8edf7", fontSize: 14, fontWeight: 600 },
         },

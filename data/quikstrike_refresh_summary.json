@@ -1,0 +1,12 @@
+{
+  "asof": "2026-09-14",
+  "F": 101.89,
+  "ref_vol": 57.42,
+  "rr_25d": 7.51,
+  "call_wall": 100,
+  "put_wall": 90,
+  "n_rows": 459,
+  "blockers": [
+    "39 extreme/remote pricing strikes had no matching LOV6 OI/volume chart point; those row fields are null."
+  ]
+}
