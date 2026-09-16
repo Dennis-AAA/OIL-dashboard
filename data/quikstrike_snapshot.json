@@ -1,61 +1,32 @@
 {
-  "source": "QuikStrike live LOV6 snapshot",
-  "asof_page": "2026-09-14",
-  "trade_date": "2026-09-11",
-  "F": 101.89,
-  "ref_vol": 57.42,
+  "source": "CME QuikStrike Essentials Pricing Sheets (strikes=All), Open Interest By Strike chart, Vol Tools Delta Curve",
+  "asof_page": "2026-09-15",
+  "trade_date": "2026-09-15",
+  "F": 105.48,
+  "ref_vol": 66.54,
   "expiry": "LOV6",
   "expiry_date": "2026-09-17",
-  "dte": 2.71,
-  "atm_vol": 58.3,
-  "vol_95": 59.14,
-  "vol_105": 65.57,
-  "rr_25d": 7.51,
-  "rr_note": "Nearest displayed deltas: 25C 106 (0.25) and 25P 98.5 (-0.24); vol difference.",
-  "call_wall": 100,
-  "call_wall_dens": 7530.684,
-  "put_wall": 90,
-  "put_wall_dens": 305.694,
-  "gamma_peak_strike": 101.5,
-  "gamma_peak_dens": 0.079,
-  "atm_gamma": 0.078,
-  "atm_vega": 0.03502,
-  "atm_theta": -0.419,
-  "oi_put_call": 1.15,
-  "call_oi_total": 1184296,
-  "put_oi_total": 1359391,
-  "futures_backwardation": [
-    {
-      "contract": "CLV6",
-      "price": 101.89,
-      "dte": 7.7,
-      "expiry": "2026-09-22",
-      "oi": 175963
-    },
-    {
-      "contract": "CLX6",
-      "price": 97.42,
-      "dte": 35.7,
-      "expiry": "2026-10-20",
-      "oi": 259949
-    },
-    {
-      "contract": "CLZ6",
-      "price": 92.71,
-      "dte": 66.75,
-      "expiry": "2026-11-20",
-      "oi": 214060
-    },
-    {
-      "contract": "CLF7",
-      "price": 88.67,
-      "dte": 97.75,
-      "expiry": "2026-12-21",
-      "oi": 102568
-    }
+  "dte": 1.75,
+  "atm_vol": 66.58,
+  "vol_95": 84.33,
+  "vol_105": 66.28,
+  "rr_25d": 4.15,
+  "rr_note": "Nearest live Pricing Sheets 25-delta call minus put; Vol Tools curve RR is 4.62 vol points.",
+  "call_wall": 100.0,
+  "put_wall": 100.0,
+  "call_wall_dens": 4045.511,
+  "put_wall_dens": 250.797,
+  "gamma_peak_strike": 100.0,
+  "gamma_peak_dens": 4296.308,
+  "atm_gamma": 0.082,
+  "atm_vega": 0.02912,
+  "atm_theta": -0.67,
+  "oi_put_call": 1.14,
+  "call_oi_total": 1181757,
+  "put_oi_total": 1352234,
+  "futures_backwardation": [],
+  "blockers": [
+    "Futures Info nearby-contract numeric summary not captured"
   ],
-  "notes": [
-    "Walls use displayed gamma multiplied by matching LOV6-only strike OI: dens_call=gamma*call_oi and dens_put=gamma*put_oi.",
-    "Vol 95/105 use nearest pricing-sheet strikes to 0.95F/1.05F."
-  ]
+  "source_url": "https://cmegroup-sso.quikstrike.net/User/QuikStrikeView.aspx?pid=30&pf=5"
 }
