@@ -1,12 +1,1 @@
-{
-  "asof": "2026-09-14",
-  "F": 101.89,
-  "ref_vol": 57.42,
-  "rr_25d": 7.51,
-  "call_wall": 100,
-  "put_wall": 90,
-  "n_rows": 459,
-  "blockers": [
-    "39 extreme/remote pricing strikes had no matching LOV6 OI/volume chart point; those row fields are null."
-  ]
-}
+{"asof":"2026-09-15","F":105.48,"ref_vol":66.54,"rr_25d":4.15,"call_wall":100.0,"put_wall":100.0,"n_rows":457,"blockers":["Futures Info numeric summary not captured; OI is dated 2026-09-14"]}
