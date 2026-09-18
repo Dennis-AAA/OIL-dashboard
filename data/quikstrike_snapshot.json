@@ -1,32 +1,857 @@
 {
-  "source": "CME QuikStrike Essentials Pricing Sheets (strikes=All), Open Interest By Strike chart, Vol Tools Delta Curve",
-  "asof_page": "2026-09-15",
-  "trade_date": "2026-09-15",
-  "F": 105.48,
-  "ref_vol": 66.54,
-  "expiry": "LOV6",
-  "expiry_date": "2026-09-17",
-  "dte": 1.75,
-  "atm_vol": 66.58,
-  "vol_95": 84.33,
-  "vol_105": 66.28,
-  "rr_25d": 4.15,
-  "rr_note": "Nearest live Pricing Sheets 25-delta call minus put; Vol Tools curve RR is 4.62 vol points.",
+  "source": "CME QuikStrike Essentials Pricing Sheets (strikes=All), Open Interest By Strike chart, Vol Tools Delta Curve, Futures Info",
+  "asof_page": "2026-09-17",
+  "trade_date": "2026-09-17",
+  "F": 96.56,
+  "ref_vol": 55.61,
+  "expiry": "LO3U6",
+  "expiry_date": "2026-09-18",
+  "dte": 0.72,
+  "atm_vol": 55.44,
+  "vol_95": 59.22,
+  "vol_105": 76.19,
+  "rr_25d": -1.366601,
+  "rr_note": "Vol Tools delta curve LO3U26 (17-Sep-26): 25C is x=75 vol 56.121280 minus 25P x=25 vol 57.487881 = -1.366601 vol points. Nearest live table: 94.8 put delta -0.25 vol 59.90, 98 call delta 0.26 vol 55.89, live rr -4.01.",
   "call_wall": 100.0,
-  "put_wall": 100.0,
-  "call_wall_dens": 4045.511,
-  "put_wall_dens": 250.797,
-  "gamma_peak_strike": 100.0,
-  "gamma_peak_dens": 4296.308,
-  "atm_gamma": 0.082,
-  "atm_vega": 0.02912,
-  "atm_theta": -0.67,
-  "oi_put_call": 1.14,
-  "call_oi_total": 1181757,
-  "put_oi_total": 1352234,
-  "futures_backwardation": [],
-  "blockers": [
-    "Futures Info nearby-contract numeric summary not captured"
+  "call_wall_dens": 23.465,
+  "put_wall": 96.0,
+  "put_wall_dens": 32.0,
+  "gamma_peak_strike": 96.0,
+  "gamma_peak_dens": 51.2,
+  "atm_gamma": 0.167,
+  "atm_vega": 0.01711,
+  "atm_theta": -0.919,
+  "oi_put_call": 1.07,
+  "call_oi_total": 5548,
+  "put_oi_total": 5917,
+  "futures_backwardation": [
+    {
+      "symbol": "CLV6",
+      "dte": 4.72,
+      "price": 101.02,
+      "expiry_date": "2026-09-22",
+      "oi": 128801
+    },
+    {
+      "symbol": "CLX6",
+      "dte": 32.72,
+      "price": 96.44,
+      "expiry_date": "2026-10-20",
+      "oi": 295173
+    },
+    {
+      "symbol": "CLZ6",
+      "dte": 63.76,
+      "price": 92.05,
+      "expiry_date": "2026-11-20",
+      "oi": 199590
+    },
+    {
+      "symbol": "CLF7",
+      "dte": 94.76,
+      "price": 88.43,
+      "expiry_date": "2026-12-21",
+      "oi": 105303
+    },
+    {
+      "symbol": "CLG7",
+      "dte": 124.76,
+      "price": 85.38,
+      "expiry_date": "2027-01-20",
+      "oi": 58521
+    },
+    {
+      "symbol": "CLH7",
+      "dte": 157.76,
+      "price": 82.91,
+      "expiry_date": "2027-02-22",
+      "oi": 80055
+    },
+    {
+      "symbol": "CLJ7",
+      "dte": 185.72,
+      "price": 80.86,
+      "expiry_date": "2027-03-22",
+      "oi": 52635
+    },
+    {
+      "symbol": "CLK7",
+      "dte": 214.72,
+      "price": 79.15,
+      "expiry_date": "2027-04-20",
+      "oi": 40249
+    },
+    {
+      "symbol": "CLM7",
+      "dte": 244.72,
+      "price": 77.65,
+      "expiry_date": "2027-05-20",
+      "oi": 127168
+    },
+    {
+      "symbol": "CLN7",
+      "dte": 277.72,
+      "price": 76.44,
+      "expiry_date": "2027-06-22",
+      "oi": 44360
+    },
+    {
+      "symbol": "CLQ7",
+      "dte": 305.72,
+      "price": 75.29,
+      "expiry_date": "2027-07-20",
+      "oi": 33763
+    },
+    {
+      "symbol": "CLU7",
+      "dte": 336.72,
+      "price": 74.44,
+      "expiry_date": "2027-08-20",
+      "oi": 49929
+    },
+    {
+      "symbol": "CLV7",
+      "dte": 368.72,
+      "price": 73.73,
+      "expiry_date": "2027-09-21",
+      "oi": 36930
+    },
+    {
+      "symbol": "CLX7",
+      "dte": 397.72,
+      "price": 73.12,
+      "expiry_date": "2027-10-20",
+      "oi": 44969
+    },
+    {
+      "symbol": "CLZ7",
+      "dte": 427.76,
+      "price": 72.65,
+      "expiry_date": "2027-11-19",
+      "oi": 175190
+    },
+    {
+      "symbol": "CLF8",
+      "dte": 458.76,
+      "price": 72.17,
+      "expiry_date": "2027-12-20",
+      "oi": 32100
+    },
+    {
+      "symbol": "CLG8",
+      "dte": 489.76,
+      "price": 71.6,
+      "expiry_date": "2028-01-20",
+      "oi": 18214
+    },
+    {
+      "symbol": "CLH8",
+      "dte": 522.76,
+      "price": 71.2,
+      "expiry_date": "2028-02-22",
+      "oi": 26285
+    },
+    {
+      "symbol": "CLJ8",
+      "dte": 550.72,
+      "price": 70.18,
+      "expiry_date": "2028-03-21",
+      "oi": 24995
+    },
+    {
+      "symbol": "CLK8",
+      "dte": 580.72,
+      "price": 69.66,
+      "expiry_date": "2028-04-20",
+      "oi": 11451
+    },
+    {
+      "symbol": "CLM8",
+      "dte": 612.72,
+      "price": 70.39,
+      "expiry_date": "2028-05-22",
+      "oi": 51976
+    },
+    {
+      "symbol": "CLN8",
+      "dte": 641.72,
+      "price": 68.72,
+      "expiry_date": "2028-06-20",
+      "oi": 11787
+    },
+    {
+      "symbol": "CLQ8",
+      "dte": 671.72,
+      "price": 69.06,
+      "expiry_date": "2028-07-20",
+      "oi": 10210
+    },
+    {
+      "symbol": "CLU8",
+      "dte": 704.72,
+      "price": 69.01,
+      "expiry_date": "2028-08-22",
+      "oi": 18491
+    },
+    {
+      "symbol": "CLV8",
+      "dte": 733.72,
+      "price": 68.67,
+      "expiry_date": "2028-09-20",
+      "oi": 7276
+    },
+    {
+      "symbol": "CLX8",
+      "dte": 763.72,
+      "price": 67.89,
+      "expiry_date": "2028-10-20",
+      "oi": 9072
+    },
+    {
+      "symbol": "CLZ8",
+      "dte": 794.76,
+      "price": 68.64,
+      "expiry_date": "2028-11-20",
+      "oi": 93058
+    },
+    {
+      "symbol": "CLF9",
+      "dte": 823.76,
+      "price": 68.82,
+      "expiry_date": "2028-12-19",
+      "oi": 11177
+    },
+    {
+      "symbol": "CLG9",
+      "dte": 857.76,
+      "price": 68.6,
+      "expiry_date": "2029-01-22",
+      "oi": 5926
+    },
+    {
+      "symbol": "CLH9",
+      "dte": 886.76,
+      "price": 68.15,
+      "expiry_date": "2029-02-20",
+      "oi": 9621
+    },
+    {
+      "symbol": "CLJ9",
+      "dte": 914.72,
+      "price": 67.6,
+      "expiry_date": "2029-03-20",
+      "oi": 4178
+    },
+    {
+      "symbol": "CLK9",
+      "dte": 945.72,
+      "price": 67.42,
+      "expiry_date": "2029-04-20",
+      "oi": 4188
+    },
+    {
+      "symbol": "CLM9",
+      "dte": 977.72,
+      "price": 66.78,
+      "expiry_date": "2029-05-22",
+      "oi": 19926
+    },
+    {
+      "symbol": "CLN9",
+      "dte": 1006.72,
+      "price": 66.82,
+      "expiry_date": "2029-06-20",
+      "oi": 4715
+    },
+    {
+      "symbol": "CLQ9",
+      "dte": 1036.72,
+      "price": 66.57,
+      "expiry_date": "2029-07-20",
+      "oi": 454
+    },
+    {
+      "symbol": "CLU9",
+      "dte": 1068.72,
+      "price": 66.34,
+      "expiry_date": "2029-08-21",
+      "oi": 2555
+    },
+    {
+      "symbol": "CLV9",
+      "dte": 1098.72,
+      "price": 66.12,
+      "expiry_date": "2029-09-20",
+      "oi": 386
+    },
+    {
+      "symbol": "CLX9",
+      "dte": 1130.72,
+      "price": 65.92,
+      "expiry_date": "2029-10-22",
+      "oi": 651
+    },
+    {
+      "symbol": "CLZ9",
+      "dte": 1158.76,
+      "price": 65.78,
+      "expiry_date": "2029-11-19",
+      "oi": 48317
+    },
+    {
+      "symbol": "CLF0",
+      "dte": 1187.95,
+      "price": 65.47,
+      "expiry_date": "2029-12-19",
+      "oi": 446
+    },
+    {
+      "symbol": "CLG0",
+      "dte": 1221.95,
+      "price": 65.23,
+      "expiry_date": "2030-01-22",
+      "oi": 60
+    },
+    {
+      "symbol": "CLH0",
+      "dte": 1250.95,
+      "price": 65.01,
+      "expiry_date": "2030-02-20",
+      "oi": 250
+    },
+    {
+      "symbol": "CLJ0",
+      "dte": 1278.95,
+      "price": 64.81,
+      "expiry_date": "2030-03-20",
+      "oi": 60
+    },
+    {
+      "symbol": "CLK0",
+      "dte": 1311.95,
+      "price": 64.63,
+      "expiry_date": "2030-04-22",
+      "oi": 285
+    },
+    {
+      "symbol": "CLM0",
+      "dte": 1340.95,
+      "price": 64.41,
+      "expiry_date": "2030-05-21",
+      "oi": 5366
+    },
+    {
+      "symbol": "CLN0",
+      "dte": 1370.95,
+      "price": 64.16,
+      "expiry_date": "2030-06-20",
+      "oi": 285
+    },
+    {
+      "symbol": "CLQ0",
+      "dte": 1402.95,
+      "price": 65.0,
+      "expiry_date": "2030-07-22",
+      "oi": 60
+    },
+    {
+      "symbol": "CLU0",
+      "dte": 1431.95,
+      "price": 63.77,
+      "expiry_date": "2030-08-20",
+      "oi": 170
+    },
+    {
+      "symbol": "CLV0",
+      "dte": 1462.95,
+      "price": 63.59,
+      "expiry_date": "2030-09-20",
+      "oi": 60
+    },
+    {
+      "symbol": "CLX0",
+      "dte": 1494.95,
+      "price": 63.41,
+      "expiry_date": "2030-10-22",
+      "oi": 145
+    },
+    {
+      "symbol": "CLZ0",
+      "dte": 1523.95,
+      "price": 63.17,
+      "expiry_date": "2030-11-20",
+      "oi": 17895
+    },
+    {
+      "symbol": "CLF1",
+      "dte": 1552.95,
+      "price": 62.95,
+      "expiry_date": "2030-12-19",
+      "oi": 145
+    },
+    {
+      "symbol": "CLG1",
+      "dte": 1585.95,
+      "price": 62.73,
+      "expiry_date": "2031-01-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH1",
+      "dte": 1615.95,
+      "price": 62.56,
+      "expiry_date": "2031-02-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ1",
+      "dte": 1643.95,
+      "price": 62.4,
+      "expiry_date": "2031-03-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK1",
+      "dte": 1676.95,
+      "price": 62.18,
+      "expiry_date": "2031-04-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM1",
+      "dte": 1704.95,
+      "price": 62.01,
+      "expiry_date": "2031-05-20",
+      "oi": 1588
+    },
+    {
+      "symbol": "CLN1",
+      "dte": 1735.95,
+      "price": 61.8,
+      "expiry_date": "2031-06-20",
+      "oi": 4
+    },
+    {
+      "symbol": "CLQ1",
+      "dte": 1767.95,
+      "price": 61.63,
+      "expiry_date": "2031-07-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLU1",
+      "dte": 1796.95,
+      "price": 61.43,
+      "expiry_date": "2031-08-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLV1",
+      "dte": 1829.95,
+      "price": 61.24,
+      "expiry_date": "2031-09-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLX1",
+      "dte": 1858.95,
+      "price": 61.1,
+      "expiry_date": "2031-10-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLZ1",
+      "dte": 1888.95,
+      "price": 60.85,
+      "expiry_date": "2031-11-20",
+      "oi": 7464
+    },
+    {
+      "symbol": "CLF2",
+      "dte": 1917.95,
+      "price": 60.65,
+      "expiry_date": "2031-12-19",
+      "oi": 0
+    },
+    {
+      "symbol": "CLG2",
+      "dte": 1949.95,
+      "price": 60.51,
+      "expiry_date": "2032-01-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH2",
+      "dte": 1980.95,
+      "price": 60.35,
+      "expiry_date": "2032-02-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ2",
+      "dte": 2011.95,
+      "price": 60.17,
+      "expiry_date": "2032-03-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK2",
+      "dte": 2040.95,
+      "price": 59.97,
+      "expiry_date": "2032-04-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM2",
+      "dte": 2070.95,
+      "price": 59.78,
+      "expiry_date": "2032-05-20",
+      "oi": 152
+    },
+    {
+      "symbol": "CLN2",
+      "dte": 2103.95,
+      "price": 59.56,
+      "expiry_date": "2032-06-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLQ2",
+      "dte": 2131.95,
+      "price": 59.38,
+      "expiry_date": "2032-07-20",
+      "oi": 2
+    },
+    {
+      "symbol": "CLU2",
+      "dte": 2162.95,
+      "price": 59.17,
+      "expiry_date": "2032-08-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLV2",
+      "dte": 2194.95,
+      "price": 59.03,
+      "expiry_date": "2032-09-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLX2",
+      "dte": 2223.95,
+      "price": 58.86,
+      "expiry_date": "2032-10-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLZ2",
+      "dte": 2253.95,
+      "price": 58.7,
+      "expiry_date": "2032-11-19",
+      "oi": 5501
+    },
+    {
+      "symbol": "CLF3",
+      "dte": 2284.95,
+      "price": 58.5,
+      "expiry_date": "2032-12-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLG3",
+      "dte": 2315.95,
+      "price": 58.36,
+      "expiry_date": "2033-01-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH3",
+      "dte": 2348.95,
+      "price": 58.21,
+      "expiry_date": "2033-02-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ3",
+      "dte": 2376.95,
+      "price": 58.05,
+      "expiry_date": "2033-03-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK3",
+      "dte": 2405.95,
+      "price": 57.85,
+      "expiry_date": "2033-04-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM3",
+      "dte": 2435.95,
+      "price": 57.63,
+      "expiry_date": "2033-05-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLN3",
+      "dte": 2467.95,
+      "price": 57.37,
+      "expiry_date": "2033-06-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLQ3",
+      "dte": 2496.95,
+      "price": 57.17,
+      "expiry_date": "2033-07-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLU3",
+      "dte": 2529.95,
+      "price": 56.98,
+      "expiry_date": "2033-08-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLV3",
+      "dte": 2558.95,
+      "price": 56.82,
+      "expiry_date": "2033-09-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLX3",
+      "dte": 2588.95,
+      "price": 56.7,
+      "expiry_date": "2033-10-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLZ3",
+      "dte": 2620.95,
+      "price": 56.59,
+      "expiry_date": "2033-11-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLF4",
+      "dte": 2649.95,
+      "price": 56.41,
+      "expiry_date": "2033-12-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLG4",
+      "dte": 2680.95,
+      "price": 56.25,
+      "expiry_date": "2034-01-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH4",
+      "dte": 2712.95,
+      "price": 56.02,
+      "expiry_date": "2034-02-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ4",
+      "dte": 2740.95,
+      "price": 55.85,
+      "expiry_date": "2034-03-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK4",
+      "dte": 2770.95,
+      "price": 55.67,
+      "expiry_date": "2034-04-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM4",
+      "dte": 2802.95,
+      "price": 55.54,
+      "expiry_date": "2034-05-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLN4",
+      "dte": 2831.95,
+      "price": 55.39,
+      "expiry_date": "2034-06-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLQ4",
+      "dte": 2861.95,
+      "price": 55.25,
+      "expiry_date": "2034-07-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLU4",
+      "dte": 2894.95,
+      "price": 55.15,
+      "expiry_date": "2034-08-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLV4",
+      "dte": 2923.95,
+      "price": 55.01,
+      "expiry_date": "2034-09-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLX4",
+      "dte": 2953.95,
+      "price": 54.88,
+      "expiry_date": "2034-10-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLZ4",
+      "dte": 2984.95,
+      "price": 54.59,
+      "expiry_date": "2034-11-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLF5",
+      "dte": 3013.95,
+      "price": 54.55,
+      "expiry_date": "2034-12-19",
+      "oi": 0
+    },
+    {
+      "symbol": "CLG5",
+      "dte": 3047.95,
+      "price": 54.39,
+      "expiry_date": "2035-01-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH5",
+      "dte": 3076.95,
+      "price": 54.24,
+      "expiry_date": "2035-02-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ5",
+      "dte": 3103.95,
+      "price": 54.1,
+      "expiry_date": "2035-03-19",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK5",
+      "dte": 3135.95,
+      "price": 53.89,
+      "expiry_date": "2035-04-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM5",
+      "dte": 3167.95,
+      "price": 53.66,
+      "expiry_date": "2035-05-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLN5",
+      "dte": 3196.95,
+      "price": 53.51,
+      "expiry_date": "2035-06-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLQ5",
+      "dte": 3226.95,
+      "price": 53.34,
+      "expiry_date": "2035-07-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLU5",
+      "dte": 3258.95,
+      "price": 53.21,
+      "expiry_date": "2035-08-21",
+      "oi": 0
+    },
+    {
+      "symbol": "CLV5",
+      "dte": 3288.95,
+      "price": 53.07,
+      "expiry_date": "2035-09-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLX5",
+      "dte": 3320.95,
+      "price": 52.93,
+      "expiry_date": "2035-10-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLZ5",
+      "dte": 3348.95,
+      "price": 52.51,
+      "expiry_date": "2035-11-19",
+      "oi": 0
+    },
+    {
+      "symbol": "CLF6",
+      "dte": 3378.95,
+      "price": 52.6,
+      "expiry_date": "2035-12-19",
+      "oi": 0
+    },
+    {
+      "symbol": "CLG6",
+      "dte": 3412.95,
+      "price": 52.48,
+      "expiry_date": "2036-01-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLH6",
+      "dte": 3441.95,
+      "price": 52.34,
+      "expiry_date": "2036-02-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLJ6",
+      "dte": 3470.95,
+      "price": 52.19,
+      "expiry_date": "2036-03-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLK6",
+      "dte": 3503.95,
+      "price": 52.03,
+      "expiry_date": "2036-04-22",
+      "oi": 0
+    },
+    {
+      "symbol": "CLM6",
+      "dte": 3531.95,
+      "price": 51.75,
+      "expiry_date": "2036-05-20",
+      "oi": 0
+    },
+    {
+      "symbol": "CLN6",
+      "dte": 3562.95,
+      "price": 51.57,
+      "expiry_date": "2036-06-20",
+      "oi": 0
+    }
   ],
+  "blockers": [],
   "source_url": "https://cmegroup-sso.quikstrike.net/User/QuikStrikeView.aspx?pid=30&pf=5"
 }
