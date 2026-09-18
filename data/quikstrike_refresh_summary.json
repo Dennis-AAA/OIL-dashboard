@@ -1,1 +1,10 @@
-{"asof":"2026-09-15","F":105.48,"ref_vol":66.54,"rr_25d":4.15,"call_wall":100.0,"put_wall":100.0,"n_rows":457,"blockers":["Futures Info numeric summary not captured; OI is dated 2026-09-14"]}
+{
+  "asof": "2026-09-17",
+  "F": 96.56,
+  "ref_vol": 55.61,
+  "rr_25d": -1.366601,
+  "call_wall": 100.0,
+  "put_wall": 96.0,
+  "n_rows": 181,
+  "blockers": []
+}
