@@ -1,74 +1,71 @@
 {
   "source": "CME QuikStrike Essentials Pricing Sheets (strikes=All), Open Interest By Strike chart, Vol Tools Delta Curve, Futures Info",
-  "asof_page": "2026-09-19",
-  "trade_date": "2026-09-19",
-  "F": 96.08,
+  "asof_page": "2026-09-20",
+  "trade_date": "2026-09-18",
+  "F": 93.71,
   "ref_vol": 39.03,
   "expiry": "ML3U6",
   "expiry_date": "2026-09-21",
-  "dte": 2.47,
-  "atm_vol": 39.03,
+  "dte": 0.7,
+  "atm_vol": 42.11,
   "vol_95": 40.18,
   "vol_105": 46.13,
-  "rr_25d": -3.757697,
-  "rr_note": "Vol Tools delta curve ML3U26 (18-Sep-26): 25C is x=75 vol 38.589932 minus 25P x=25 vol 42.347629 = -3.757697 vol points. Nearest live table (no exact ±0.25 printed): ML3U6 94 P delta -0.26 vol 41.47, ML3U6 98.3 C delta 0.24 vol 38.18, live rr -3.29. Headline rr_25d is the delta-curve value, not the live table.",
+  "rr_25d": -3.6346296862757725,
+  "rr_note": "Vol Tools delta curve ML3U26 (18-Sep-26): 25C is x=75 vol 37.291288 minus 25P x=25 vol 40.925918 = -3.634630 vol points (from twenty_five_delta.rr_call_minus_put_vol_pct_pts). Nearest live table (no exact ±0.25 printed): ML3U6 93.3 P delta -0.41 vol 43.28, ML3U6 96.3 C delta 0.05 vol 38.79, live rr -4.49. Headline rr_25d is the delta-curve value, not the live table.",
   "call_wall": 95.0,
-  "call_wall_dens": 20.768,
-  "put_wall": 94.5,
-  "put_wall_dens": 37.044,
-  "gamma_peak_strike": 94.5,
-  "gamma_peak_dens": 37.368,
-  "atm_gamma": 0.129,
-  "atm_vega": 0.03151,
-  "atm_theta": -0.281,
-  "oi_put_call": 0.99,
-  "call_oi_total": 2353,
-  "put_oi_total": 2330,
+  "call_wall_dens": 5039.002,
+  "put_wall": 95.0,
+  "put_wall_dens": 677.29,
+  "gamma_peak_strike": 95.0,
+  "gamma_peak_dens": 5716.292,
+  "atm_gamma": 0.23,
+  "atm_vega": 0.01639,
+  "atm_theta": -0.671,
+  "oi_put_call": 0.83,
+  "call_oi_total": 868698,
+  "put_oi_total": 723723,
+  "oi_scope": "product_board_selected_symbols",
   "futures_backwardation": [
     {
       "symbol": "CLV6",
-      "dte": 3.47,
-      "price": 100.3,
-      "expiry_date": "2026-09-22",
-      "oi": 79712
+      "price": 97.89,
+      "settle": 100.3,
+      "volume": 1608
     },
     {
       "symbol": "CLX6",
-      "dte": 31.47,
-      "price": 96.08,
-      "expiry_date": "2026-10-20",
-      "oi": 304429
+      "price": 93.64,
+      "settle": 96.08,
+      "volume": 26289
     },
     {
       "symbol": "CLZ6",
-      "dte": 62.51,
-      "price": 92.05,
-      "expiry_date": "2026-11-20",
-      "oi": 197108
+      "price": 89.93,
+      "settle": 92.05,
+      "volume": 11880
     },
     {
       "symbol": "CLF7",
-      "dte": 93.51,
-      "price": 88.85,
-      "expiry_date": "2026-12-21",
-      "oi": 104663
+      "price": 87.04,
+      "settle": 88.85,
+      "volume": 6370
     },
     {
       "symbol": "CLG7",
-      "dte": 123.51,
-      "price": 86.1,
-      "expiry_date": "2027-01-20",
-      "oi": 59036
+      "price": 84.42,
+      "settle": 86.1,
+      "volume": 3928
     },
     {
       "symbol": "CLH7",
-      "dte": 156.51,
-      "price": 83.8,
-      "expiry_date": "2027-02-22",
-      "oi": 80098
+      "price": 82.42,
+      "settle": 83.8,
+      "volume": 3154
     }
   ],
-  "futures_backwardation_note": "Limited to the first six CL monthlies on the Futures Info menu (CLV6 through CLH7). Full curve is on the extract futures_summary (118 contracts).",
-  "blockers": [],
+  "futures_backwardation_note": "First six CL monthlies from Futures Info Current term series (CLV6, CLX6, CLZ6, CLF7, CLG7, CLH7). Settle/volume attached when present. DTE/expiry_date/OI not on this capture. Full Current curve in extract futures_summary.",
+  "blockers": [
+    "OI chart is not isolated to ML3U6: selected_symbols=[\"ML3U6\", \"NL4U6\", \"WL4U6\", \"XL4U6\", \"LO4U6\", \"ML4U6\", \"NL5U6\", \"WL5U6\", \"XL1V6\", \"LO1V6\", \"ML1V6\", \"NL1V6\", \"WL1V6\", \"XL2V6\", \"LO2V6\", \"ML2V6\", \"NL2V6\", \"WL2V6\", \"LOX6\", \"XL3V6\", \"LOZ6\", \"LOF7\", \"LOG7\", \"LOH7\", \"LOJ7\"]. Densities/walls use product-board OI joined by strike; treat walls as contaminated vs ML3U6-only prior."
+  ],
   "source_url": "https://cmegroup-sso.quikstrike.net/User/QuikStrikeView.aspx?pid=30&pf=5"
 }
