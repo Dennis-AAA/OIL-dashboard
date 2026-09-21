@@ -1,10 +1,14 @@
 {
-  "asof": "2026-09-19",
-  "F": 96.08,
+  "asof": "2026-09-20",
+  "trade_date": "2026-09-18",
+  "F": 93.71,
   "ref_vol": 39.03,
-  "rr_25d": -3.757697,
+  "rr_25d": -3.6346296862757725,
   "call_wall": 95.0,
-  "put_wall": 94.5,
+  "put_wall": 95.0,
   "n_rows": 186,
-  "blockers": []
+  "oi_matched": 184,
+  "blockers": [
+    "OI chart is not isolated to ML3U6: selected_symbols=[\"ML3U6\", \"NL4U6\", \"WL4U6\", \"XL4U6\", \"LO4U6\", \"ML4U6\", \"NL5U6\", \"WL5U6\", \"XL1V6\", \"LO1V6\", \"ML1V6\", \"NL1V6\", \"WL1V6\", \"XL2V6\", \"LO2V6\", \"ML2V6\", \"NL2V6\", \"WL2V6\", \"LOX6\", \"XL3V6\", \"LOZ6\", \"LOF7\", \"LOG7\", \"LOH7\", \"LOJ7\"]. Densities/walls use product-board OI joined by strike; treat walls as contaminated vs ML3U6-only prior."
+  ]
 }

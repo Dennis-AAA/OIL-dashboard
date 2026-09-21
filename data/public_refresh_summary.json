@@ -13,12 +13,33 @@
     "wti": "Yahoo Finance chart API CL=F (~3y; America/New_York session dates)",
     "ovx": "Cboe OVX_History.csv (primary); Yahoo ^OVX for gap-fill",
     "fred_ovxcls": "not used (optional; prior public CSV/API attempt unavailable)",
-    "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50"
+    "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50",
+    "alpha_vantage_wti_crosscheck": "Alpha Vantage WTI daily (spot/cash) latest sample through 2026-09-15=107.02; NOT used for dashboard series (board uses Yahoo CL=F futures continuous)."
   },
   "uso_atm_iv_rows_preserved": 60,
   "start": "2023-09-15",
   "end": "2026-09-18",
   "wti_vs_sma50": 13.9006,
   "ovx_primary_rows_used": 755,
-  "ovx_yahoo_gap_rows_used": 0
+  "ovx_yahoo_gap_rows_used": 0,
+  "yahoo_revisions_vs_prior_series": [],
+  "yahoo_wti_bars_omitted": [
+    {
+      "date": "2025-01-09",
+      "yahoo_cl_close": 73.92,
+      "reason": "no Cboe/Yahoo OVX close for session (or pre-START filter); omitted per dashboard convention"
+    },
+    {
+      "date": "2025-07-04",
+      "yahoo_cl_close": 66.5,
+      "reason": "no Cboe/Yahoo OVX close for session (or pre-START filter); omitted per dashboard convention"
+    },
+    {
+      "date": "2026-09-20",
+      "yahoo_cl_close": 93.78,
+      "reason": "no Cboe/Yahoo OVX close for session (or pre-START filter); omitted per dashboard convention"
+    }
+  ],
+  "refreshed_at": "2026-09-21 09:31:45 CST",
+  "refresh_note": "Public WTI+OVX re-pulled 2026-09-21 CST. Latest complete dual-source session remains 2026-09-18 (Fri). Yahoo CL=F also returned a 2026-09-20 Sunday-evening live/incomplete bar with no OVX — omitted. US Mon 2026-09-21 session not yet open at refresh (NY still Sun evening). QuikStrike keys left untouched; full QS merge not run."
 }
