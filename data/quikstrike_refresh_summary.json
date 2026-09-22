@@ -1,10 +1,12 @@
 {
-  "asof": "2026-09-19",
-  "F": 96.08,
-  "ref_vol": 39.03,
-  "rr_25d": -3.757697,
-  "call_wall": 95.0,
-  "put_wall": 94.5,
-  "n_rows": 186,
+  "asof": "2026-09-21",
+  "trade_date": "2026-09-18",
+  "F": 92.95,
+  "ref_vol": 60.29,
+  "rr_25d": -3.82,
+  "call_wall": 93.0,
+  "put_wall": 95.0,
+  "n_rows": 181,
+  "oi_matched": 111,
   "blockers": []
 }
