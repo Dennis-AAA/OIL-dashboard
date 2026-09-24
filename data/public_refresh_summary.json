@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-09-22",
-  "wti_last": 89.6,
-  "ovx_last": 51.89,
-  "rv10": 66.0675,
-  "rv20": 52.2287,
-  "iv_rv20": -0.3387,
-  "sma50": 87.116,
-  "sma200": 81.0178,
-  "ovx_pctile": 82.6948,
-  "n_points": 757,
+  "as_of": "2026-09-23",
+  "wti_last": 91.79,
+  "ovx_last": 53.24,
+  "rv10": 55.7851,
+  "rv20": 45.6692,
+  "iv_rv20": 7.5708,
+  "sma50": 87.4648,
+  "sma200": 81.2034,
+  "ovx_pctile": 84.0426,
+  "n_points": 752,
   "sources": {
     "wti": "Yahoo Finance chart API CL=F (~3y; America/New_York session dates)",
     "ovx": "Cboe OVX_History.csv (primary); Yahoo ^OVX for gap-fill",
@@ -16,9 +16,9 @@
     "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50"
   },
   "uso_atm_iv_rows_preserved": 60,
-  "start": "2023-09-15",
-  "end": "2026-09-22",
-  "wti_vs_sma50": 2.484,
-  "ovx_primary_rows_used": 757,
-  "ovx_yahoo_gap_rows_used": 0
+  "start": "2023-09-25",
+  "end": "2026-09-23",
+  "wti_vs_sma50": 4.3252,
+  "ovx_primary_rows_used": 751,
+  "ovx_yahoo_gap_rows_used": 1
 }
