@@ -1,12 +1,17 @@
 {
-  "asof": "2026-09-23",
-  "trade_date": "2026-09-22",
-  "F": 92.71,
-  "ref_vol": 62.38,
-  "rr_25d": -3.46,
-  "call_wall": 92.0,
-  "put_wall": 90.0,
-  "n_rows": 177,
-  "oi_matched": 177,
-  "blockers": []
+  "asof": "2026-09-24",
+  "trade_date": "2026-09-23",
+  "F": 94.76,
+  "ref_vol": 52.97,
+  "rr_25d": -2.11,
+  "call_wall": 95.0,
+  "put_wall": 88.5,
+  "n_rows": 152,
+  "oi_matched": 31,
+  "blockers": [
+    "QuikStrike page data was dated 9/24/2026 and OI trade date 9/23/2026 rather than 9/25/2026.",
+    "Delta Curve did not display an explicit RR field; nearest displayed deltas are recorded instead.",
+    "Futures Info did not expose a distinct current-vs-settle quote field.",
+    "OI capture has only 31 strikes (range 88.5..96.0); walls/densities use this partial OI join, not a full All-strikes ladder."
+  ]
 }
