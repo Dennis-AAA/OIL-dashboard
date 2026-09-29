@@ -1,39 +1,36 @@
 {
-  "as_of": "2026-09-25",
-  "wti_last": 92.41,
-  "ovx_last": 55.09,
-  "rv10": 44.052,
-  "rv20": 46.8802,
-  "iv_rv20": 8.2098,
-  "sma50": 88.0416,
-  "sma200": 81.5455,
-  "ovx_pctile": 85.1064,
+  "as_of": "2026-09-28",
+  "wti_last": 93.15,
+  "ovx_last": 56.11,
+  "rv10": 43.4089,
+  "rv20": 46.824,
+  "iv_rv20": 9.286,
+  "sma50": 88.2548,
+  "sma200": 81.72,
+  "ovx_pctile": 86.0372,
   "n_points": 752,
   "sources": {
-    "wti": "Yahoo Finance chart API CL=F via query2 (~3y; America/New_York session dates); query1 returned 429",
-    "ovx": "Cboe OVX_History.csv (primary); Yahoo ^OVX via query2 for gap-fill",
+    "wti": "Yahoo Finance chart API CL=F (~3y; America/New_York session dates)",
+    "ovx": "Cboe OVX_History.csv (primary); Yahoo ^OVX for gap-fill",
     "fred_ovxcls": "not used (optional; prior public CSV/API attempt unavailable)",
     "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50"
   },
   "uso_atm_iv_rows_preserved": 60,
-  "start": "2023-09-27",
-  "end": "2026-09-25",
-  "wti_vs_sma50": 4.3684,
+  "start": "2023-09-28",
+  "end": "2026-09-28",
+  "wti_vs_sma50": 4.8952,
   "ovx_primary_rows_used": 752,
   "ovx_yahoo_gap_rows_used": 0,
-  "yahoo_query1_429": true,
-  "yahoo_query2_ok": true,
-  "cboe_ok": true,
-  "wti_yahoo_last_session": "2026-09-27",
-  "wti_yahoo_last_value": 93.22,
-  "ovx_cboe_last": "2026-09-25",
-  "ovx_yahoo_last": "2026-09-25",
-  "skipped_wti_dates_no_ovx": [
-    "2025-01-09",
-    "2025-07-04",
-    "2026-09-27"
-  ],
   "staging_only": true,
-  "staging_dir": "/workspace/oil-dashboard/data/staging_0928",
-  "refreshed_at_shanghai": "2026-09-28T08:13:19+08:00"
+  "staging_dir": "/workspace/oil-dashboard/data/staging_0929",
+  "omitted_wti_no_ovx": [
+    {
+      "date": "2025-01-09",
+      "wti": 73.92
+    },
+    {
+      "date": "2025-07-04",
+      "wti": 66.5
+    }
+  ]
 }
