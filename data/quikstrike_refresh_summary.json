@@ -1,18 +1,12 @@
 {
-  "asof": "2026-09-27",
+  "asof": "2026-09-28",
   "trade_date": "2026-09-25",
-  "F": 93.46,
-  "ref_vol": 55.42,
-  "rr_25d": -3.05,
-  "call_wall": 90.0,
+  "F": 93.93,
+  "ref_vol": 68.05,
+  "rr_25d": -5.0,
+  "call_wall": 100.0,
   "put_wall": 95.0,
   "n_rows": 152,
-  "oi_matched": 31,
-  "blockers": [
-    "Page banner asof 2026-09-27 and OI trade date 2026-09-25, not capture date 2026-09-28.",
-    "OI is sparse for XL1V6 (many displayed strike cells blank/zero).",
-    "Delta Curve did not display an explicit RR field; nearest displayed deltas are recorded instead.",
-    "Futures Info did not expose a distinct current-vs-settle quote field.",
-    "OI capture has only 31 strikes (range 88.8..96.3); walls/densities use this partial OI join, not a full All-strikes ladder."
-  ]
+  "oi_matched": 152,
+  "blockers": []
 }
