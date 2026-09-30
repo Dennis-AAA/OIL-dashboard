@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-09-28",
-  "wti_last": 93.15,
-  "ovx_last": 56.11,
-  "rv10": 43.4089,
-  "rv20": 46.824,
-  "iv_rv20": 9.286,
-  "sma50": 88.2548,
-  "sma200": 81.72,
-  "ovx_pctile": 86.0372,
+  "as_of": "2026-09-29",
+  "wti_last": 89.14,
+  "ovx_last": 53.74,
+  "rv10": 33.702,
+  "rv20": 48.4235,
+  "iv_rv20": 5.3165,
+  "sma50": 88.362,
+  "sma200": 81.8707,
+  "ovx_pctile": 84.0426,
   "n_points": 752,
   "sources": {
     "wti": "Yahoo Finance chart API CL=F (~3y; America/New_York session dates)",
@@ -16,21 +16,9 @@
     "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50"
   },
   "uso_atm_iv_rows_preserved": 60,
-  "start": "2023-09-28",
-  "end": "2026-09-28",
-  "wti_vs_sma50": 4.8952,
+  "start": "2023-09-29",
+  "end": "2026-09-29",
+  "wti_vs_sma50": 0.778,
   "ovx_primary_rows_used": 752,
-  "ovx_yahoo_gap_rows_used": 0,
-  "staging_only": true,
-  "staging_dir": "/workspace/oil-dashboard/data/staging_0929",
-  "omitted_wti_no_ovx": [
-    {
-      "date": "2025-01-09",
-      "wti": 73.92
-    },
-    {
-      "date": "2025-07-04",
-      "wti": 66.5
-    }
-  ]
+  "ovx_yahoo_gap_rows_used": 0
 }

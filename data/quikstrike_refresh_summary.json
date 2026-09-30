@@ -1,12 +1,14 @@
 {
-  "asof": "2026-09-28",
-  "trade_date": "2026-09-25",
-  "F": 93.93,
-  "ref_vol": 68.05,
-  "rr_25d": -5.0,
-  "call_wall": 100.0,
-  "put_wall": 95.0,
+  "asof": "2026-09-29",
+  "trade_date": "2026-09-28",
+  "F": 88.94,
+  "ref_vol": 64.24,
+  "rr_25d": -4.719999999999992,
+  "call_wall": 90.0,
+  "put_wall": 87.0,
   "n_rows": 152,
   "oi_matched": 152,
-  "blockers": []
+  "blockers": [
+    "Futures Info still exposed CLX6 and DTE/update time but no distinct accessible quote value; pricing, OI-by-strike, and delta capture blockers were fixed."
+  ]
 }
