@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向波动看板 · Databento</title><meta name="description" content="方向偏好 × 波动率偏好：日度/周度可复盘的期货与期权风格看板（Databento 版）。"><meta name="theme-color" content="#eef0f3">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:,"><link rel="stylesheet" href="style.css"></head><body>
+<div class="wrap">
+<header><div><p class="kicker">VOL × DELTA DESK</p><h1>方向偏好 <span class="x">×</span> 波动率偏好</h1>
+<p class="sub">矩阵看方向 × 波动；结构页把趋势 / 季节性 / Gamma / 仓位拆到单品种。</p></div>
+<div class="ctl"><div class="seg" id="hz"><button data-h="daily" class="on">日度</button><button data-h="weekly">周度</button></div>
+<button class="btn" id="refresh" title="重新读取最新生成的静态数据">刷新</button>
+<button class="btn" id="memo" title="静态页无纪要引擎">纪要</button></div></header>
+<nav id="tabs"><button data-t="board" class="on">看板</button><button data-t="desk">结构</button><button data-t="data">数据</button><button data-t="method">方法</button><button data-t="archive">存档</button></nav>
+<main id="view"><p class="muted">加载中…</p></main>
+<footer id="foot"></footer></div>
+<div id="drawer" class="drawer hidden"><div class="dpanel"><button class="close" id="dclose">关闭</button><div id="dbody"></div></div></div>
+<div id="toast" class="toast hidden"></div>
+<script src="app.js"></script></body></html>
