@@ -1,14 +1,21 @@
 {
-  "asof": "2026-09-29",
-  "trade_date": "2026-09-28",
-  "F": 88.94,
-  "ref_vol": 64.24,
-  "rr_25d": -4.719999999999992,
+  "source": "databento",
+  "asof": "2026-10-12",
+  "trade_date": "2026-10-09",
+  "F": 91.85,
+  "ref_vol": 44.01,
+  "rr_25d": -2.85,
   "call_wall": 90.0,
-  "put_wall": 87.0,
-  "n_rows": 152,
-  "oi_matched": 152,
+  "put_wall": 90.0,
+  "expiry": "LOX6",
+  "dte": 6.0,
+  "n_rows": 458,
+  "oi_matched": 385,
   "blockers": [
-    "Futures Info still exposed CLX6 and DTE/update time but no distinct accessible quote value; pricing, OI-by-strike, and delta capture blockers were fixed."
-  ]
+    "range (session high-low) not sourced; null"
+  ],
+  "databento_cost_usd": {
+    "definition": 0.0,
+    "statistics": 0.0
+  }
 }
