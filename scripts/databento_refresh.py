@@ -42,7 +42,7 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--trade-date"); a = ap.parse_args()
     c = db.Historical(os.environ["DATABENTO_API_KEY"])
     end_avail = pd.Timestamp(c.metadata.get_dataset_range(dataset=DS)["end"])
-    td = pd.Timestamp(a.trade_date) if a.trade_date else (end_avail.tz_convert("America/New_York").normalize().tz_localize(None) - pd.offsets.BDay(1))
+    td = pd.Timestamp(a.trade_date) if a.trade_date else (end_avail.tz_convert("America/New_York").normalize().tz_localize(None))  # loop below walks back if settlements not yet published
     # walk back to find a trade date with final settlements
     costs = {}
     for _ in range(5):
