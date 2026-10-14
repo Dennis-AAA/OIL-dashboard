@@ -36,7 +36,20 @@ def get(c, schema, syms, start, end):
     cost = c.metadata.get_cost(dataset=DS, schema=schema, symbols=syms, stype_in="parent", start=start, end=end)
     print(f"cost {schema} {syms} {start}->{end}: ${cost:.4f}")
     if cost > MAX_COST: sys.exit(f"abort: cost {cost} > {MAX_COST}")
-    return c.timeseries.get_range(dataset=DS, schema=schema, symbols=syms, stype_in="parent", start=start, end=end).to_df(), cost
+    # pull in <=8h chunks with retries: large LO.OPT statistics requests can hit the 60s gateway timeout (504)
+    s0, e0 = pd.Timestamp(start), pd.Timestamp(end); parts = []
+    while s0 < e0:
+        s1 = min(s0 + pd.Timedelta(hours=8), e0)
+        for k in range(3):
+            try:
+                parts.append(c.timeseries.get_range(dataset=DS, schema=schema, symbols=syms, stype_in="parent",
+                             start=s0.strftime("%Y-%m-%dT%H:%M"), end=s1.strftime("%Y-%m-%dT%H:%M")).to_df()); break
+            except db.BentoServerError as e:
+                if k == 2: raise
+                print(f"retry {schema} {s0}->{s1}: {e}")
+        s0 = s1
+    parts = [x for x in parts if len(x)]
+    return (pd.concat(parts) if parts else pd.DataFrame()), cost
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--trade-date"); a = ap.parse_args()
@@ -46,8 +59,11 @@ def main():
     # walk back to find a trade date with final settlements
     costs = {}
     for _ in range(5):
-        start, end = td.strftime("%Y-%m-%d"), min(td + pd.Timedelta(days=4), end_avail.tz_localize(None)).strftime("%Y-%m-%dT%H:%M")
-        defs, costs["definition"] = get(c, "definition", ["LO.OPT", "CL.FUT"], start, (td + pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+        end_naive = end_avail.tz_convert("UTC").tz_localize(None) if end_avail.tzinfo else end_avail
+        start = td.strftime("%Y-%m-%d")
+        end = min(td + pd.Timedelta(days=4), end_naive).strftime("%Y-%m-%dT%H:%M")
+        def_end = min(td + pd.Timedelta(days=1), end_naive).strftime("%Y-%m-%dT%H:%M")
+        defs, costs["definition"] = get(c, "definition", ["LO.OPT", "CL.FUT"], start, def_end)
         st, costs["statistics"] = get(c, "statistics", ["LO.OPT", "CL.FUT"], (td - pd.offsets.BDay(1)).strftime("%Y-%m-%d"), end)
         st["ref_date"] = st["ts_ref"].dt.tz_convert("UTC").dt.date  # CME stats ts_ref = trade date 00:00 UTC
         settle = st[(st.stat_type == 3) & (st.ref_date == td.date())]
