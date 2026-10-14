@@ -1,6 +1,8 @@
 {
- "generatedAt": "2026-10-12T04:03:20+00:00",
- "asOf": "2026-10-09",
- "databento_cost_usd": {},
- "total_cost": 0
+ "generatedAt": "2026-10-14T04:53:41+00:00",
+ "asOf": "2026-10-13",
+ "databento_cost_usd": {
+  "statistics LO.OPT 2026-10-13": 0.0
+ },
+ "total_cost": 0.0
 }

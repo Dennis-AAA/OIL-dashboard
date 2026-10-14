@@ -40,7 +40,23 @@ def dbget(c, schema, syms, stype, start, end, tag):
     cost = c.metadata.get_cost(dataset=DS, schema=schema, symbols=syms, stype_in=stype, start=start, end=end)
     COSTS[tag] = round(float(cost), 4); print(f"cost {tag}: ${cost:.4f}", flush=True)
     if cost > MAX_COST: sys.exit(f"abort: {tag} cost {cost} > {MAX_COST}")
-    return c.timeseries.get_range(dataset=DS, schema=schema, symbols=syms, stype_in=stype, start=start, end=end).to_df()
+    if schema not in ("definition", "statistics"):
+        return c.timeseries.get_range(dataset=DS, schema=schema, symbols=syms, stype_in=stype, start=start, end=end).to_df()
+    # option definition/statistics: <=8h chunks + retries (large parents like LO.OPT/OG.OPT can hit the 60s gateway 504)
+    import databento as db
+    s0, e0 = pd.Timestamp(start), pd.Timestamp(end); parts = []
+    while s0 < e0:
+        s1 = min(s0 + pd.Timedelta(hours=4), e0)
+        for k in range(5):
+            try:
+                parts.append(c.timeseries.get_range(dataset=DS, schema=schema, symbols=syms, stype_in=stype,
+                             start=s0.strftime("%Y-%m-%dT%H:%M"), end=s1.strftime("%Y-%m-%dT%H:%M")).to_df()); break
+            except db.BentoServerError as ex:
+                if k == 4: raise
+                print(f"retry {tag} {s0}->{s1}: {ex}", flush=True)
+        s0 = s1
+    parts = [x for x in parts if len(x)]
+    return pd.concat(parts) if parts else pd.DataFrame()
 
 def cached(name, fn, max_age_h, use_cache):
     p = CACHE / name
