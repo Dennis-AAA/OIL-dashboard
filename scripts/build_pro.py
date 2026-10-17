@@ -84,7 +84,9 @@ def gam(F, K, T, s):
 # ---------------- data pulls ----------------
 def pull_futures(c, use_cache):
     syms = [f"{a['root']}.v.0" for a in ASSETS]
-    end = pd.Timestamp(c.metadata.get_dataset_range(dataset=DS)["end"]).strftime("%Y-%m-%dT%H:%M")
+    rng = c.metadata.get_dataset_range(dataset=DS)
+    end_ts = pd.Timestamp((rng.get("schema", {}).get("ohlcv-1d") or {}).get("end") or rng["end"])  # clip to ohlcv-1d availability
+    end = end_ts.strftime("%Y-%m-%dT%H:%M")
     df = cached("ohlcv.parquet", lambda: dbget(c, "ohlcv-1d", syms, "continuous", "2016-01-01", end, "ohlcv-1d futures .v.0 2016→"), 6, use_cache)
     out = {}
     for a in ASSETS:
