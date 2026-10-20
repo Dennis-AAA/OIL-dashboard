@@ -1,8 +1,9 @@
 {
- "generatedAt": "2026-10-17T16:20:46+00:00",
- "asOf": "2026-10-16",
+ "generatedAt": "2026-10-20T03:17:42+00:00",
+ "asOf": "2026-10-19",
  "databento_cost_usd": {
-  "ohlcv-1d futures .v.0 2016\u2192": 0.0
+  "statistics HXE.OPT 2026-10-19": 0.0,
+  "statistics LO.OPT 2026-10-19": 0.0
  },
  "total_cost": 0.0
 }
