@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-11-03",
-  "wti_last": 96.6,
-  "ovx_last": 61.69,
-  "rv10": 56.8759,
-  "rv20": 46.6669,
-  "iv_rv20": 15.0231,
-  "sma50": 95.0498,
-  "sma200": 86.7141,
-  "ovx_pctile": 90.1596,
+  "as_of": "2026-11-04",
+  "wti_last": 88.12,
+  "ovx_last": 58.81,
+  "rv10": 67.3669,
+  "rv20": 56.4848,
+  "iv_rv20": 2.3252,
+  "sma50": 95.1548,
+  "sma200": 86.8505,
+  "ovx_pctile": 87.5,
   "n_points": 752,
   "sources": {
     "wti": "Yahoo Finance chart API CL=F (~3y; America/New_York session dates)",
@@ -16,9 +16,9 @@
     "computed": "RV10/RV20 = sample stdev(log returns, n)*sqrt(252)*100; iv_rv20=ovx-rv20; SMA expanding then rolling; ovx_pctile expanding <= rank; wti_vs_sma50=wti-sma50"
   },
   "uso_atm_iv_rows_preserved": 60,
-  "start": "2023-11-03",
-  "end": "2026-11-03",
-  "wti_vs_sma50": 1.5502,
+  "start": "2023-11-06",
+  "end": "2026-11-04",
+  "wti_vs_sma50": -7.0348,
   "ovx_primary_rows_used": 752,
   "ovx_yahoo_gap_rows_used": 0
 }
