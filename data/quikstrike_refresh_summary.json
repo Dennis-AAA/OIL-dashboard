@@ -1,17 +1,18 @@
 {
   "source": "databento",
-  "asof": "2026-11-09",
-  "trade_date": "2026-11-06",
-  "F": 90.83,
-  "ref_vol": 55.1,
-  "rr_25d": 4.8,
+  "asof": "2026-11-10",
+  "trade_date": "2026-11-09",
+  "F": 86.85,
+  "ref_vol": 53.15,
+  "rr_25d": -0.71,
   "call_wall": 90.0,
   "put_wall": 85.0,
   "expiry": "LOZ6",
-  "dte": 11.0,
+  "dte": 8.0,
   "n_rows": 475,
   "oi_matched": 405,
   "blockers": [
+    "prior-day futures settlement not in pulled window; underlying_change null",
     "range (session high-low) not sourced; null"
   ],
   "databento_cost_usd": {
