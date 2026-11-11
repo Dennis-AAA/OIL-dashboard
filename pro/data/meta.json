@@ -1,14 +1,11 @@
 {
- "generatedAt": "2026-11-10T01:43:26+00:00",
- "asOf": "2026-11-09",
+ "generatedAt": "2026-11-11T01:46:28+00:00",
+ "asOf": "2026-11-10",
  "databento_cost_usd": {
-  "statistics ES.OPT 2026-11-09": 0.0,
-  "statistics OZN.OPT 2026-11-09": 0.0,
-  "definition JPU.OPT 2026-11-09": 0.0,
-  "statistics JPU.OPT 2026-11-09": 0.0,
-  "statistics OG.OPT 2026-11-09": 0.0,
-  "definition LO.OPT 2026-11-09": 0.0,
-  "statistics LO.OPT 2026-11-09": 0.0
+  "statistics OZN.OPT 2026-11-10": 0.0,
+  "statistics EUU.OPT 2026-11-10": 0.0,
+  "statistics OG.OPT 2026-11-10": 0.0,
+  "statistics LO.OPT 2026-11-10": 0.0
  },
  "total_cost": 0.0
 }
