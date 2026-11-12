@@ -1,10 +1,11 @@
 {
- "generatedAt": "2026-11-12T01:44:39+00:00",
+ "generatedAt": "2026-11-12T03:25:19+00:00",
  "asOf": "2026-11-11",
  "databento_cost_usd": {
-  "definition EUU.OPT 2026-11-11": 0.0,
   "statistics EUU.OPT 2026-11-11": 0.0,
   "statistics OG.OPT 2026-11-11": 0.0,
+  "definition HXE.OPT 2026-11-11": 0.0,
+  "statistics HXE.OPT 2026-11-11": 0.0,
   "statistics LO.OPT 2026-11-11": 0.0
  },
  "total_cost": 0.0
