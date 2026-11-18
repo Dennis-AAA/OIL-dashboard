@@ -1,12 +1,11 @@
 {
- "generatedAt": "2026-11-14T07:01:23+00:00",
- "asOf": "2026-11-13",
+ "generatedAt": "2026-11-18T02:22:29+00:00",
+ "asOf": "2026-11-17",
  "databento_cost_usd": {
-  "statistics OG.OPT 2026-11-13": 0.0,
-  "definition HXE.OPT 2026-11-13": 0.0,
-  "statistics HXE.OPT 2026-11-13": 0.0,
-  "definition LO.OPT 2026-11-13": 0.0,
-  "statistics LO.OPT 2026-11-13": 0.0
+  "definition HXE.OPT 2026-11-17": 0.0,
+  "statistics HXE.OPT 2026-11-17": 0.0,
+  "definition LO.OPT 2026-11-17": 0.0,
+  "statistics LO.OPT 2026-11-17": 0.0
  },
  "total_cost": 0.0
 }
