@@ -1,16 +1,16 @@
 {
   "source": "databento",
-  "asof": "2026-11-19",
-  "trade_date": "2026-11-18",
-  "F": 82.31,
-  "ref_vol": 46.2,
-  "rr_25d": 1.75,
+  "asof": "2026-11-20",
+  "trade_date": "2026-11-19",
+  "F": 82.44,
+  "ref_vol": 45.96,
+  "rr_25d": 3.19,
   "call_wall": 90.0,
   "put_wall": 75.0,
   "expiry": "LOF7",
-  "dte": 28.0,
+  "dte": 27.0,
   "n_rows": 328,
-  "oi_matched": 291,
+  "oi_matched": 292,
   "blockers": [
     "range (session high-low) not sourced; null"
   ],
